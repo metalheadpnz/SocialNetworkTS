@@ -1,3 +1,7 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 .app-wrapper {
     margin: 0 auto;
     width: 1200px;
@@ -10,21 +14,10 @@
     grid-template-areas: "h h h" "n c c"
 }
 
-.header {
-    background-color: antiquewhite;
-    grid-area: h;
-}
 
-.nav {
-    background-color: aqua;
-    grid-area: n;
-}
 
-.content {
-    background-color: azure;
-    grid-area: c;
-}
 
-.header img {
-    width: 100px;
-}
+
+
+
+
