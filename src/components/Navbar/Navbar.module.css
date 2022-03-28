@@ -1,14 +1,21 @@
 .item {
-    color: blue;
+    color: #115f9a;
     text-decoration: none;
     text-transform: uppercase;
+    transition: .2s;
 }
 
 .active {
-    color: red;
+    color: #e74343;
+    transition: .15s;
 }
 
 .nav {
-    background-color: aqua;
+    background-color: lightskyblue;
     grid-area: n;
+    min-height: 70vh;
+}
+
+.navLinkWrap {
+    padding: 10px;
 }
