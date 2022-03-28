@@ -1,15 +1,14 @@
 import React from 'react';
-import styles from './Navbar.module.css';
+import s from './Navbar.module.css';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
     return (
-        <nav className={styles.nav}>
-
-            <div><a href="" className={`${styles.item} ${styles.active}`}>profile</a></div>
-            <div><a href="" className={styles.item}>messages</a></div>
-            <div><a href="" className={styles.item}>news</a></div>
-            <div><a href="" className={styles.item}>music</a></div>
-            <div><a href="" className={styles.item}>settings</a></div>
+        <nav className={s.nav}>
+            <div><a href="/profile" className={`${s.item} ${s.active}`}>profile</a></div>
+            <div><a href="/dialogs" className={s.item}>messages</a></div>
+            <div><a href="" className={s.item}>news</a></div>
+            <div><a href="" className={s.item}>music</a></div>
+            <div><a href="" className={s.item}>settings</a></div>
         </nav>
     );
 };
