@@ -20,6 +20,18 @@
     padding: 2px;
 }
 
+.link{
+    color: #115f9a;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .2s;
+}
+
+.activeLink {
+    color: #e74343;
+    transition: .15s;
+}
+
 .dialogsPageWrap div div {
 
 }
