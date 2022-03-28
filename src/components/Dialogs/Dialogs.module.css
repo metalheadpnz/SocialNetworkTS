@@ -1,0 +1,25 @@
+.dialogsPageWrap {
+    display: flex;
+}
+
+.dialogsItems {
+    flex: 1;
+    padding: 5px;
+}
+
+.dialogsItems div{
+    padding: 5px;
+}
+
+.messages {
+    flex: 4;
+    padding: 5px
+}
+
+.messages div{
+    padding: 2px;
+}
+
+.dialogsPageWrap div div {
+
+}
