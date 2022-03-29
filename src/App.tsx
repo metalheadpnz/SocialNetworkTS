@@ -9,17 +9,19 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
-import {dialogType, messageDataType} from "./index";
+import {dialogType, messageDataType, postType} from "./index";
 
 type propsType = {
     dialogsData: dialogType[]
     messagesData: messageDataType
+    postsData: postType[]
 }
 
-function App({messagesData, dialogsData}: propsType) {
+function App({messagesData, dialogsData,postsData}: propsType) {
+
     const props4Dialogs = {
         messagesData,
-        dialogsData
+        dialogsData,
     }
 
     return (
@@ -30,7 +32,7 @@ function App({messagesData, dialogsData}: propsType) {
             <div className='app-content-wrap'>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                    <Route path={'/profile'} element={<Profile/>}/>
+                    <Route path={'/profile'} element={<Profile postsData={postsData}/>}/>
                     <Route path={'/dialogs/*'} element={<Dialogs {...props4Dialogs}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>

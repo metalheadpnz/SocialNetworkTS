@@ -1,12 +1,12 @@
 import React from 'react';
 import Post from "./Post/Post";
+import {postType} from "../../../index";
 
-const MyPosts = () => {
-    const postsData = [
-        {id: '1', message: 'Чики брики', likeCounter: 5},
-        {id: '2', message: 'Тоси боси', likeCounter: 100500},
-        {id: '3', message: 'glory to heroes', likeCounter: 99},
-    ]
+type propsType = {
+    postsData: postType[]
+}
+
+const MyPosts: React.FC<propsType>= ({postsData}) => {
 
     return (
         <div className={'p10'}>

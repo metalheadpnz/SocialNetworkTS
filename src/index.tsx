@@ -6,7 +6,8 @@ import {HashRouter} from "react-router-dom";
 
 export type dialogType = { id: string, name: string }
 export type messageDataType = { [userID: string]: messageType[] }
-export type messageType = { messageID: string, title: string };
+export type messageType = { messageID: string, title: string }
+export type postType = { id: string, message: string, likeCounter: number }
 
 const dialogsData: dialogType[] = [
     {id: '1', name: 'Dimych'},
@@ -30,10 +31,17 @@ const messagesData: messageDataType = {
         {messageID: '2', title: '3333blabla'},]
 }
 
+const postsData: postType[] = [
+    {id: '1', message: 'Чики брики', likeCounter: 5},
+    {id: '2', message: 'Тоси боси', likeCounter: 100500},
+    {id: '3', message: 'glory to heroes', likeCounter: 99},
+]
+
 ReactDOM.render(
     <HashRouter>
         {/*<React.StrictMode>*/}
-        <App messagesData={messagesData}
+        <App postsData={postsData}
+             messagesData={messagesData}
              dialogsData={dialogsData}/>
         {/*</React.StrictMode>*/}
     </HashRouter>,
