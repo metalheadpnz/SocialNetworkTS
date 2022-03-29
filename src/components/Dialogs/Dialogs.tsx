@@ -26,12 +26,6 @@ const Dialogs: React.FC<propsType> = ({dialogsData, messagesData}) => {
                         ? <Messages messages={messagesData[userIDFromURL]}/>
                         : <div>no messages</div>
                     : <div>Please, select the Dialog</div>}
-
-
-                {/*{userIDFromURL && (userIDFromURL in messagesData)*/}
-                {/*    ? <Messages messages={messagesData[userIDFromURL]}/>*/}
-                {/*    : <div>Please, select the Dialog</div>}*/}
-
             </div>
 
         </div>
