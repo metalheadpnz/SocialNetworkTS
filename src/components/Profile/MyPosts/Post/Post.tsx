@@ -4,12 +4,12 @@ import style from './Post.module.css'
 type postPropsType = {
     message: string
     likeCounter: number
+    id: string
 }
 
 
-
 const Post = (props: postPropsType) => {
-  let {message, likeCounter} = props
+    let {message, likeCounter} = props
     return (
         <div>
             <img className={style.test}
