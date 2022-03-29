@@ -20,6 +20,17 @@ body {
     grid-area: c;
 }
 
+.width100{
+    width: 100%;
+}
+
+.p10{
+    padding: 10px;
+}
+
+.pt20{
+    padding-top: 20px;
+}
 
 
 

@@ -3,13 +3,16 @@ import Post from "./Post/Post";
 
 const MyPosts = () => {
     return (
-        <div>
+        <div className={'p10'}>
             <div className={'postForm'}>
                 <textarea></textarea>
-                <button>add post</button>
+                <div>
+                    <button>add post</button>
+                </div>
+
             </div>
-            <div>
-                my posts
+            <div className={'pt20'}>
+                <h3>my posts</h3>
                 <div>
                     <Post message={'Чики брики'} likeCounter={5}/>
                     <Post message={'Тоси боси'} likeCounter={100500}/>

@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./Dialogs.module.css";
 
-const Messages: React.FC = () => {
+const Message: React.FC = () => {
     return (
         <>
             <div className={s.message}>Hi!</div>
@@ -11,4 +11,4 @@ const Messages: React.FC = () => {
     );
 };
 
-export default Messages;
+export default Message;
