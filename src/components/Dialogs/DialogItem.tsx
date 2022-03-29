@@ -12,7 +12,7 @@ const DialogItem: React.FC<propsTypes> = ({name, id}) => {
 
     const navLinkClassName = (p: { isActive: boolean }) => p.isActive ? `${s.activeLink} ${s.link}` : s.link
     return (
-        <NavLink to={`/dialogs/${id}`} className={navLinkClassName}>
+        <NavLink to={`/dialogs/${id.toString()}`} className={navLinkClassName}>
             <div className={s.dialogs}>{name}</div>
         </NavLink>
     );
