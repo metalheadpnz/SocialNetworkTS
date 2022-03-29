@@ -9,8 +9,19 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
+import {dialogType, messageDataType} from "./index";
 
-function App() {
+type propsType = {
+    dialogsData: dialogType[]
+    messagesData: messageDataType
+}
+
+function App({messagesData, dialogsData}: propsType) {
+    const props4Dialogs = {
+        messagesData,
+        dialogsData
+    }
+
     return (
         <div className="app-wrapper">
             <Header/>
@@ -20,7 +31,7 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                     <Route path={'/profile'} element={<Profile/>}/>
-                    <Route path={'/dialogs/*'} element={<Dialogs/>}/>
+                    <Route path={'/dialogs/*'} element={<Dialogs {...props4Dialogs}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>

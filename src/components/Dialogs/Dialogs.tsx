@@ -3,44 +3,17 @@ import s from './Dialogs.module.css'
 import {useParams} from "react-router-dom";
 import Messages from "./Messages";
 import DialogItem from "./DialogItem";
+import {dialogType, messageDataType} from "../../index";
 
 
-const Dialogs: React.FC = () => {
+type propsType = {
+    dialogsData: dialogType[]
+    messagesData: messageDataType
+}
 
-
-    const dialogsData = [
-        {id: '1', name: 'Dimych'},
-        {id: '2', name: 'Linus'},
-        {id: '3', name: 'Elon'},
-        {id: '4', name: 'Mark'}
-    ]
-
-    // const messagesData: messageType[] = [
-    //     {id: '1', title: 'Hi!'},
-    //     {id: '2', title: 'ZX-Spectrum is cool!'},
-    //     {id: '3', title: 'ATMega328 is better then ATiny13'}
-    // ]
-    type messageDataType = {
-        [userID: string]: messageType[]
-    }
-
-    const messagesData: messageDataType = {
-        '1': [
-            {messageID: '1', title: 'Hi!'},
-            {messageID: '2', title: 'ZX-Spectrum is cool!'},
-            {messageID: '3', title: 'ATMega328 is better then ATiny13'}
-        ],
-        '2': [
-            {messageID: '1', title: 'sdsd'},
-
-        ],
-        '3': [
-            {messageID: '1', title: '333!'},
-            {messageID: '2', title: '3333blabla'},]
-    }
+const Dialogs: React.FC<propsType> = ({dialogsData, messagesData}) => {
 
     const userIDFromURL: string | undefined = useParams<"*">()["*"]
-
 
     return (
         <div className={s.dialogsPageWrap}>
@@ -66,4 +39,3 @@ const Dialogs: React.FC = () => {
 };
 
 export default Dialogs;
-export type messageType = { messageID: string, title: string };
