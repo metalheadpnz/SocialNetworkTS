@@ -3,16 +3,19 @@ import s from './Dialogs.module.css'
 import {useParams} from "react-router-dom";
 import Messages from "./Messages";
 import DialogItem from "./DialogItem";
-import {dialogType, messageDataType} from "../../index";
+import {dialogType, messageDataType} from "../../redux/state";
 
 
 type propsType = {
-    dialogsData: dialogType[]
-    messagesData: messageDataType
+    dialogsPage: {
+        dialogsData: dialogType[]
+        messagesData: messageDataType
+    }
 }
 
-const Dialogs: React.FC<propsType> = ({dialogsData, messagesData}) => {
-
+const Dialogs: React.FC<propsType> = (props) => {
+    const dialogsData = props.dialogsPage.dialogsData
+    const messagesData = props.dialogsPage.messagesData
     const userIDFromURL: string | undefined = useParams<"*">()["*"]
 
     return (
