@@ -1,4 +1,4 @@
-.dialogsPageWrap {
+.dialogsWrap {
     display: flex;
 }
 
@@ -7,7 +7,7 @@
     padding: 5px;
 }
 
-.dialogsItems div{
+.dialogsItems div {
     padding: 5px;
 }
 
@@ -16,11 +16,11 @@
     padding: 5px
 }
 
-.messages div{
+.messages div {
     padding: 2px;
 }
 
-.link{
+.link {
     color: #115f9a;
     text-decoration: none;
     text-transform: uppercase;
@@ -32,6 +32,6 @@
     transition: .15s;
 }
 
-.dialogsPageWrap div div {
-
+.sendMessageForm {
+    padding: 10px;
 }
