@@ -15,7 +15,8 @@ const MyPosts: React.FC<propsType> = ({postsData, addPost}) => {
     const addPostButtonHandler = () => {
         const text = newPostElement.current?.value
         text && addPost(text)
-        console.log(postsData)
+        newPostElement.current && (newPostElement.current.value = '')
+
     }
 
     return (

@@ -6,16 +6,13 @@ import {HashRouter} from "react-router-dom";
 
 import {state} from "./redux/state";
 import {addPost} from "./redux/state";
+import {rerenderEntireTree} from "./render";
 
 // addPost('hello from App')
 
-ReactDOM.render(
-    <HashRouter>
-        {/*<React.StrictMode>*/}
-        <App addPost={addPost}
-             state={state}/>
-        {/*</React.StrictMode>*/}
-    </HashRouter>,
-    document.getElementById('root')
-);
+
+
+rerenderEntireTree(state, addPost)
+
+
 
