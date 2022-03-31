@@ -20,7 +20,8 @@ type propsType = {
             dialogsData: dialogType[]
             messagesData: messageDataType
         }
-    }
+    },
+    addPost: (newPostTitle: string) => void
 }
 
 function App(props: propsType) {
@@ -33,7 +34,8 @@ function App(props: propsType) {
             <div className='app-content-wrap'>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                    <Route path={'/profile'} element={<Profile profilePage={props.state.profilePage}/>}/>
+                    <Route path={'/profile'} element={<Profile addPost={props.addPost}
+                                                               profilePage={props.state.profilePage}/>}/>
                     <Route path={'/dialogs/*'} element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>

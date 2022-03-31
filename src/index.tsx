@@ -5,12 +5,15 @@ import App from './App';
 import {HashRouter} from "react-router-dom";
 
 import {state} from "./redux/state";
-import {stat} from "fs";
+import {addPost} from "./redux/state";
+
+// addPost('hello from App')
 
 ReactDOM.render(
     <HashRouter>
         {/*<React.StrictMode>*/}
-        <App state={state}/>
+        <App addPost={addPost}
+             state={state}/>
         {/*</React.StrictMode>*/}
     </HashRouter>,
     document.getElementById('root')
