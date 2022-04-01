@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import {HashRouter} from "react-router-dom";
 
-import {store, subscribe} from "./redux/state";
+import {store} from "./redux/state";
 
 
 const rerenderEntireTree = () => {
@@ -21,6 +21,6 @@ const rerenderEntireTree = () => {
 rerenderEntireTree()
 
 
-subscribe(rerenderEntireTree)
+store.subscribe(rerenderEntireTree)
 
 

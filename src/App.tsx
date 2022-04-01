@@ -26,9 +26,10 @@ function App(props: propsType) {
             <div className='app-content-wrap'>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                    <Route path={'/profile'} element={<Profile changeTextAreaValue={props.store.changeTextAreaValue}
-                                                               addPost={props.store.addPost}
-                                                               profilePage={state.profilePage}/>}/>
+                    <Route path={'/profile'}
+                           element={<Profile changeTextAreaValue={props.store.changeTextAreaValue.bind(props.store)}
+                                             addPost={props.store.addPost.bind(props.store)}
+                                             profilePage={state.profilePage}/>}/>
                     <Route path={'/dialogs/*'} element={<Dialogs dialogsPage={state.dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
