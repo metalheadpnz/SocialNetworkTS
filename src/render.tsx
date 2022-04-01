@@ -3,16 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {HashRouter} from "react-router-dom";
+import {changeTextAreaValue, stateType} from "./redux/state";
 
 
-export const rerenderEntireTree = (state: any, addPost: any) => {
-    ReactDOM.render(
-        <HashRouter>
-            {/*<React.StrictMode>*/}
-            <App addPost={addPost}
-                 state={state}/>
-            {/*</React.StrictMode>*/}
-        </HashRouter>,
-        document.getElementById('root')
-    );
-}
+export const rerenderEntireTree =
+    (state: stateType,
+     addPost: (newPostTitle: string) => void,
+     changeTextAreaValue: (value: string) => void) => {
+        ReactDOM.render(
+            <HashRouter>
+                {/*<React.StrictMode>*/}
+                <App changeTextAreaValue={changeTextAreaValue}
+                     addPost={addPost}
+                     state={state}/>
+                {/*</React.StrictMode>*/}
+            </HashRouter>,
+            document.getElementById('root')
+        );
+    }

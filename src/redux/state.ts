@@ -4,23 +4,37 @@ export type dialogType = { id: string, name: string }
 export type messageDataType = { [userID: string]: messageType[] }
 export type messageType = { messageID: string, title: string }
 export type postType = { id: string, message: string, likeCounter: number }
+export type profilePageType = { profilePage: postType[] }
+export type textAreaValue = string
 
+export type stateType = {
+    profilePage: {
+        postsData: postType[],
+        textAreaValue: string
+    },
+    dialogsPage: {
+        dialogsData: dialogType[],
+        messagesData: { [userID: string]: messageType[] }
+    }
+}
 
-export let state = {
+export let state: stateType = {
     profilePage: {
         postsData: [
             {id: '1', message: 'Чики брики', likeCounter: 5},
             {id: '2', message: 'Тоси боси', likeCounter: 100500},
             {id: '3', message: 'подержи мое пиво', likeCounter: 99},
-        ] as postType[]
+        ],
+        textAreaValue: ''
     },
+
     dialogsPage: {
         dialogsData: [
             {id: '1', name: 'Dimych'},
             {id: '2', name: 'Linus'},
             {id: '3', name: 'Elon'},
             {id: '4', name: 'Mark'}
-        ] as dialogType[],
+        ],
 
         messagesData: {
             '1': [
@@ -42,5 +56,10 @@ export let state = {
 export const addPost = (newPostTitle: string) => {
     state.profilePage.postsData.push({id: '4', message: newPostTitle, likeCounter: 0})
 
-    rerenderEntireTree(state, addPost)
+    rerenderEntireTree(state, addPost, changeTextAreaValue)
+}
+
+export const changeTextAreaValue = (value: string) => {
+    state.profilePage.textAreaValue = value
+    rerenderEntireTree(state, addPost, changeTextAreaValue)
 }

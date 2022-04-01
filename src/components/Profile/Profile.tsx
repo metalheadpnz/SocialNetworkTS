@@ -6,16 +6,28 @@ import {postType} from "../../redux/state";
 
 
 type propsType = {
-    profilePage: { postsData: postType[] }
-    addPost: (newPostTitle: string) => void
+    profilePage: {
+        postsData: postType[],
+        textAreaValue: string
+    }
+    addPost: (newPostTitle: string) => void,
+    changeTextAreaValue: (value: string) => void
+
 }
 
-const Profile: React.FC<propsType> = ({profilePage, addPost}) => {
+// const Profile: React.FC<propsType> = ({profilePage, addPost}) => {
+const Profile: React.FC<propsType> = (props) => {
+    const addPost = props.addPost
+    const profilePage = props.profilePage
+    const changeTextAreaValue = props.changeTextAreaValue
+
+
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts addPost={addPost}
-                     postsData={profilePage.postsData}/>
+            <MyPosts changeTextAreaValue={changeTextAreaValue}
+                     addPost={addPost}
+                     profilePage={profilePage}/>
         </div>
     );
 };

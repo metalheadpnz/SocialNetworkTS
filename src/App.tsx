@@ -9,19 +9,21 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
-import {dialogType, messageDataType, postType} from "./redux/state";
+import {changeTextAreaValue, dialogType, messageDataType, postType} from "./redux/state";
 
 type propsType = {
     state: {
         profilePage: {
-            postsData: postType[]
+            postsData: postType[],
+            textAreaValue: string
         }
         dialogsPage: {
             dialogsData: dialogType[]
             messagesData: messageDataType
         }
     },
-    addPost: (newPostTitle: string) => void
+    addPost: (newPostTitle: string) => void,
+    changeTextAreaValue: (value: string) => void
 }
 
 function App(props: propsType) {
@@ -34,7 +36,8 @@ function App(props: propsType) {
             <div className='app-content-wrap'>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                    <Route path={'/profile'} element={<Profile addPost={props.addPost}
+                    <Route path={'/profile'} element={<Profile changeTextAreaValue={props.changeTextAreaValue}
+                                                               addPost={props.addPost}
                                                                profilePage={props.state.profilePage}/>}/>
                     <Route path={'/dialogs/*'} element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>

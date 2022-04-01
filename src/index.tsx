@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import {HashRouter} from "react-router-dom";
 
-import {state} from "./redux/state";
+import {changeTextAreaValue, state} from "./redux/state";
 import {addPost} from "./redux/state";
 import {rerenderEntireTree} from "./render";
 
@@ -12,7 +12,7 @@ import {rerenderEntireTree} from "./render";
 
 
 
-rerenderEntireTree(state, addPost)
+rerenderEntireTree(state, addPost, changeTextAreaValue)
 
 
 
