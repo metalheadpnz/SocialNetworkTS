@@ -1,4 +1,6 @@
-import {rerenderEntireTree} from "../render";
+let render = () => {
+    console.log('render')
+}
 
 export type dialogType = { id: string, name: string }
 export type messageDataType = { [userID: string]: messageType[] }
@@ -62,7 +64,7 @@ export const addPost = () => {
 
     state.profilePage.textAreaValue = ''
 
-    rerenderEntireTree(state)
+    render()
 
 
 }
@@ -70,7 +72,13 @@ export const addPost = () => {
 export const changeTextAreaValue = (value: string) => {
     state.profilePage.textAreaValue = value
 
-    rerenderEntireTree(state)
+    render()
 }
+
+
+export const subscribe = (observer: () => void) => {
+    render = observer
+}
+
 // @ts-ignore
 window.state = state
