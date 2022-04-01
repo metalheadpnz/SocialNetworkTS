@@ -10,23 +10,18 @@ type propsType = {
         postsData: postType[],
         textAreaValue: string
     }
-    addPost: () => void,
-    changeTextAreaValue: (value: string) => void
-
+    dispatch: (action: { type: string, payload?: any }) => void,
 }
 
 // const Profile: React.FC<propsType> = ({profilePage, addPost}) => {
 const Profile: React.FC<propsType> = (props) => {
-    const addPost = props.addPost
     const profilePage = props.profilePage
-    const changeTextAreaValue = props.changeTextAreaValue
 
 
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts changeTextAreaValue={changeTextAreaValue}
-                     addPost={addPost}
+            <MyPosts dispatch={props.dispatch}
                      profilePage={profilePage}/>
         </div>
     );

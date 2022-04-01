@@ -9,25 +9,23 @@ type propsType = {
         postsData: postType[],
         textAreaValue: string
     }
-    addPost: () => void,
-    changeTextAreaValue: (value: string) => void
+    dispatch: (action: { type: string, payload?: any }) => void
 }
 
 // const MyPosts: React.FC<propsType> = ( {postsData, addPost, ...restProps} ) => {
 const MyPosts: React.FC<propsType> = (props) => {
-    const addPost = props.addPost
     const postsData = props.profilePage.postsData
-    const changeTextAreaValue = props.changeTextAreaValue
-
 
     const newPostElement: LegacyRef<HTMLTextAreaElement> = React.createRef()
 
     const addPostButtonHandler = () => {
-        addPost()
+        props.dispatch({type: 'ADD-POST'})
+        //   addPost()
     }
 
     const onTextAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        changeTextAreaValue(e.currentTarget.value)
+        // changeTextAreaValue(e.currentTarget.value)
+        props.dispatch({type: 'CHANGE-TEXT-AREA-VALUE', payload: {value: e.currentTarget.value}})
     }
 
     return (

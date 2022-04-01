@@ -21,6 +21,7 @@ export type storeType = {
     changeTextAreaValue(value: string): void,
     _callTheSubscriber(): void,
     subscribe(observer: () => void): void
+    dispatch(action: { type: string }): void
 }
 
 
@@ -60,8 +61,13 @@ export let store: storeType = {
         },
     },
 
+    _callTheSubscriber() {
+    },
     getState() {
         return this._state
+    },
+    subscribe(observer: () => void) {
+        this._callTheSubscriber = observer
     },
 
     addPost() {
@@ -73,17 +79,28 @@ export let store: storeType = {
         this._state.profilePage.textAreaValue = ''
         this._callTheSubscriber()
     },
-
     changeTextAreaValue(value) {
         this._state.profilePage.textAreaValue = value
         this._callTheSubscriber()
     },
 
-    _callTheSubscriber() {
-    },
+    dispatch(action: { type: string, payload?: any }) {
+        switch (action.type) {
 
-    subscribe(observer: () => void) {
-        this._callTheSubscriber = observer
+            case 'ADD-POST':
+                this._state.profilePage.postsData.push({
+                    id: Date.now().toString(),
+                    message: this._state.profilePage.textAreaValue,
+                    likeCounter: 0
+                })
+                this._state.profilePage.textAreaValue = ''
+                this._callTheSubscriber()
+                break;
+
+            case 'CHANGE-TEXT-AREA-VALUE':
+                this._state.profilePage.textAreaValue = action.payload.value
+                this._callTheSubscriber()
+                break;
+        }
     }
-
 }

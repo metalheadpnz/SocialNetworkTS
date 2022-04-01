@@ -27,8 +27,7 @@ function App(props: propsType) {
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                     <Route path={'/profile'}
-                           element={<Profile changeTextAreaValue={props.store.changeTextAreaValue.bind(props.store)}
-                                             addPost={props.store.addPost.bind(props.store)}
+                           element={<Profile dispatch={props.store.dispatch.bind(props.store)}
                                              profilePage={state.profilePage}/>}/>
                     <Route path={'/dialogs/*'} element={<Dialogs dialogsPage={state.dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>
