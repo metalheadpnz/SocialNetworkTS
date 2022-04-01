@@ -9,24 +9,14 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
-import {dialogType, messageDataType, postType} from "./redux/state";
+import {storeType} from "./redux/state";
 
 type propsType = {
-    state: {
-        profilePage: {
-            postsData: postType[],
-            textAreaValue: string
-        }
-        dialogsPage: {
-            dialogsData: dialogType[]
-            messagesData: messageDataType
-        }
-    },
-    addPost: () => void,
-    changeTextAreaValue: (value: string) => void
+    store: storeType
 }
 
 function App(props: propsType) {
+    const state = props.store.getState()
 
     return (
         <div className="app-wrapper">
@@ -36,10 +26,10 @@ function App(props: propsType) {
             <div className='app-content-wrap'>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                    <Route path={'/profile'} element={<Profile changeTextAreaValue={props.changeTextAreaValue}
-                                                               addPost={props.addPost}
-                                                               profilePage={props.state.profilePage}/>}/>
-                    <Route path={'/dialogs/*'} element={<Dialogs dialogsPage={props.state.dialogsPage}/>}/>
+                    <Route path={'/profile'} element={<Profile changeTextAreaValue={props.store.changeTextAreaValue}
+                                                               addPost={props.store.addPost}
+                                                               profilePage={state.profilePage}/>}/>
+                    <Route path={'/dialogs/*'} element={<Dialogs dialogsPage={state.dialogsPage}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
