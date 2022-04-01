@@ -12,7 +12,7 @@ import {rerenderEntireTree} from "./render";
 
 
 
-rerenderEntireTree(state, addPost, changeTextAreaValue)
+rerenderEntireTree(state)
 
 
 

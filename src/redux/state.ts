@@ -53,13 +53,24 @@ export let state: stateType = {
     },
 }
 
-export const addPost = (newPostTitle: string) => {
-    state.profilePage.postsData.push({id: '4', message: newPostTitle, likeCounter: 0})
+export const addPost = () => {
+    state.profilePage.postsData.push({
+        id: '4',
+        message: state.profilePage.textAreaValue,
+        likeCounter: 0
+    })
 
-    rerenderEntireTree(state, addPost, changeTextAreaValue)
+    state.profilePage.textAreaValue = ''
+
+    rerenderEntireTree(state)
+
+
 }
 
 export const changeTextAreaValue = (value: string) => {
     state.profilePage.textAreaValue = value
-    rerenderEntireTree(state, addPost, changeTextAreaValue)
+
+    rerenderEntireTree(state)
 }
+// @ts-ignore
+window.state = state

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler, LegacyRef} from 'react';
+import React, {ChangeEvent, LegacyRef} from 'react';
 import Post from "./Post/Post";
 import {postType} from "../../../redux/state";
 
@@ -9,7 +9,7 @@ type propsType = {
         postsData: postType[],
         textAreaValue: string
     }
-    addPost: (newPostTitle: string) => void,
+    addPost: () => void,
     changeTextAreaValue: (value: string) => void
 }
 
@@ -23,10 +23,7 @@ const MyPosts: React.FC<propsType> = (props) => {
     const newPostElement: LegacyRef<HTMLTextAreaElement> = React.createRef()
 
     const addPostButtonHandler = () => {
-        const text = newPostElement.current?.value
-        text && addPost(text)
-        newPostElement.current && (newPostElement.current.value = '')
-
+        addPost()
     }
 
     const onTextAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {

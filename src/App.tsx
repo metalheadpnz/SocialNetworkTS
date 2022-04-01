@@ -9,7 +9,7 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
-import {changeTextAreaValue, dialogType, messageDataType, postType} from "./redux/state";
+import {dialogType, messageDataType, postType} from "./redux/state";
 
 type propsType = {
     state: {
@@ -22,7 +22,7 @@ type propsType = {
             messagesData: messageDataType
         }
     },
-    addPost: (newPostTitle: string) => void,
+    addPost: () => void,
     changeTextAreaValue: (value: string) => void
 }
 

@@ -10,7 +10,7 @@ type propsType = {
         postsData: postType[],
         textAreaValue: string
     }
-    addPost: (newPostTitle: string) => void,
+    addPost: () => void,
     changeTextAreaValue: (value: string) => void
 
 }
