@@ -23,7 +23,9 @@ export type storeType = {
     subscribe(observer: () => void): void
     dispatch(action: { type: string }): void
 }
-
+export type  addPostActionType = { type: 'ADD-POST' }
+export type changeTextAreaValueType = { type: 'CHANGE-TEXT-AREA-VALUE', payload: any }
+export type actionsTypes = addPostActionType | changeTextAreaValueType
 
 export const store: storeType = {
     _state: {
@@ -84,10 +86,10 @@ export const store: storeType = {
         this._callTheSubscriber()
     },
 
-    dispatch(action: { type: string, payload?: any }) {
+    dispatch(action: actionsTypes) {
         switch (action.type) {
 
-            case ADD_POST :
+            case 'ADD-POST' :
                 this._state.profilePage.postsData.push({
                     id: Date.now().toString(),
                     message: this._state.profilePage.textAreaValue,
@@ -97,7 +99,7 @@ export const store: storeType = {
                 this._callTheSubscriber()
                 break;
 
-            case CHANGE_TEXT_AREA_VALUE:
+            case 'CHANGE-TEXT-AREA-VALUE':
                 this._state.profilePage.textAreaValue = action.payload.value
                 this._callTheSubscriber()
                 break;
@@ -105,14 +107,13 @@ export const store: storeType = {
     }
 }
 
-const ADD_POST = 'ADD-POST'
-const CHANGE_TEXT_AREA_VALUE = 'CHANGE-TEXT-AREA-VALUE'
+export const addPostAC = (): addPostActionType => (
+    {type: 'ADD-POST'} as const
+)
 
-export const addPostAC = () => ({type: ADD_POST})
-
-export const changeTextAreaValueAC = (value: string) => {
+export const changeTextAreaValueAC = (value: string): changeTextAreaValueType => {
     return {
-        type: CHANGE_TEXT_AREA_VALUE,
+        type: 'CHANGE-TEXT-AREA-VALUE',
         payload: {value: value}
-    }
+    } as const
 }
