@@ -25,7 +25,7 @@ export type storeType = {
 }
 
 
-export let store: storeType = {
+export const store: storeType = {
     _state: {
         profilePage: {
             postsData: [
@@ -87,7 +87,7 @@ export let store: storeType = {
     dispatch(action: { type: string, payload?: any }) {
         switch (action.type) {
 
-            case 'ADD-POST':
+            case ADD_POST :
                 this._state.profilePage.postsData.push({
                     id: Date.now().toString(),
                     message: this._state.profilePage.textAreaValue,
@@ -97,10 +97,22 @@ export let store: storeType = {
                 this._callTheSubscriber()
                 break;
 
-            case 'CHANGE-TEXT-AREA-VALUE':
+            case CHANGE_TEXT_AREA_VALUE:
                 this._state.profilePage.textAreaValue = action.payload.value
                 this._callTheSubscriber()
                 break;
         }
+    }
+}
+
+const ADD_POST = 'ADD-POST'
+const CHANGE_TEXT_AREA_VALUE = 'CHANGE-TEXT-AREA-VALUE'
+
+export const addPostAC = () => ({type: ADD_POST})
+
+export const changeTextAreaValueAC = (value: string) => {
+    return {
+        type: CHANGE_TEXT_AREA_VALUE,
+        payload: {value: value}
     }
 }

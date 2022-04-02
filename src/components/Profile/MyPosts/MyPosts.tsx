@@ -1,6 +1,8 @@
 import React, {ChangeEvent, LegacyRef} from 'react';
 import Post from "./Post/Post";
-import {postType} from "../../../redux/state";
+import {addPostAC, changeTextAreaValueAC, postType} from "../../../redux/store";
+
+
 
 
 type propsType = {
@@ -19,13 +21,14 @@ const MyPosts: React.FC<propsType> = (props) => {
     const newPostElement: LegacyRef<HTMLTextAreaElement> = React.createRef()
 
     const addPostButtonHandler = () => {
-        props.dispatch({type: 'ADD-POST'})
+        props.dispatch(addPostAC())
         //   addPost()
     }
 
     const onTextAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // changeTextAreaValue(e.currentTarget.value)
-        props.dispatch({type: 'CHANGE-TEXT-AREA-VALUE', payload: {value: e.currentTarget.value}})
+        // props.dispatch({type: 'CHANGE-TEXT-AREA-VALUE', payload: {value: e.currentTarget.value}})
+        props.dispatch(changeTextAreaValueAC(e.currentTarget.value))
     }
 
     return (

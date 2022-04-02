@@ -9,7 +9,7 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
-import {storeType} from "./redux/state";
+import {storeType} from "./redux/store";
 
 type propsType = {
     store: storeType
