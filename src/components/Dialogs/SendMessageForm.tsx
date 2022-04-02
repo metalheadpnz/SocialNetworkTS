@@ -1,15 +1,28 @@
-import React, {LegacyRef} from 'react';
+import React, {ChangeEvent, LegacyRef} from 'react';
 import s from './Dialogs.module.css'
+import {addMessageAC, changeNewMessageTextAC, dialogPageActionTypes} from "../../redux/store";
+//dialogPageActionTypes
 
-const SendMessageForm = () => {
+type propsType = {
+    dispatch: (newMessageText: dialogPageActionTypes) => void
+    newMessageText: string
+    currentUser: string | undefined
+}
+const SendMessageForm: React.FC<propsType> = (props) => {
     const newMessageText: LegacyRef<HTMLTextAreaElement> = React.createRef()
     const sendMessage = () => {
-        alert(newMessageText.current?.value)
+        props.currentUser ? props.dispatch(addMessageAC(props.currentUser)) : alert('select the dialog')
+    }
+
+    const onTextAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(changeNewMessageTextAC(e.currentTarget.value))
     }
 
     return (
         <div className={s.sendMessageForm}>
-            <textarea ref={newMessageText}></textarea>
+            <textarea onChange={onTextAreaChangeHandler}
+                      value={props.newMessageText}
+                      ref={newMessageText}/>
             <div>
                 <button onClick={sendMessage}>send message</button>
             </div>

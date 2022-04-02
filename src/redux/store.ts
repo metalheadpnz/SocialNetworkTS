@@ -1,6 +1,12 @@
 export type dialogType = { id: string, name: string }
 export type messageDataType = { [userID: string]: messageType[] }
 export type messageType = { messageID: string, title: string }
+export type dialogsPageTypes = {
+    dialogsData: dialogType[],
+    messagesData: { [userID: string]: messageType[] }
+    textAreaValue: string
+
+}
 export type postType = { id: string, message: string, likeCounter: number }
 export type profilePageType = { profilePage: postType[] }
 export type textAreaValue = string
@@ -9,23 +15,22 @@ export type stateType = {
         postsData: postType[],
         textAreaValue: string
     },
-    dialogsPage: {
-        dialogsData: dialogType[],
-        messagesData: { [userID: string]: messageType[] }
-    }
+    dialogsPage: dialogsPageTypes
 }
 export type storeType = {
     _state: stateType,
     getState(): stateType,
-    addPost(): void,
-    changeTextAreaValue(value: string): void,
     _callTheSubscriber(): void,
     subscribe(observer: () => void): void
     dispatch(action: { type: string }): void
 }
 export type  addPostActionType = { type: 'ADD-POST' }
 export type changeTextAreaValueType = { type: 'CHANGE-TEXT-AREA-VALUE', payload: any }
-export type actionsTypes = addPostActionType | changeTextAreaValueType
+export type changeNewMessageTextType = { type: 'CHANGE-NEW-MESSAGE-TEXT', payload: { text: string } }
+export type addMessageType = ReturnType<typeof addMessageAC>
+export type dialogPageActionTypes = changeNewMessageTextType | addMessageType
+export type profilePageActionTypes = addPostActionType | changeTextAreaValueType
+export type actionsTypes = profilePageActionTypes | dialogPageActionTypes
 
 export const store: storeType = {
     _state: {
@@ -58,8 +63,11 @@ export const store: storeType = {
                 ],
                 '3': [
                     {messageID: '1', title: '333!'},
-                    {messageID: '2', title: '3333blabla'},]
-            }
+                    {messageID: '2', title: '3333blabla'},],
+                '4': []
+            },
+
+            textAreaValue: '',
         },
     },
 
@@ -70,20 +78,6 @@ export const store: storeType = {
     },
     subscribe(observer: () => void) {
         this._callTheSubscriber = observer
-    },
-
-    addPost() {
-        this._state.profilePage.postsData.push({
-            id: Date.now().toString(),
-            message: this._state.profilePage.textAreaValue,
-            likeCounter: 0
-        })
-        this._state.profilePage.textAreaValue = ''
-        this._callTheSubscriber()
-    },
-    changeTextAreaValue(value) {
-        this._state.profilePage.textAreaValue = value
-        this._callTheSubscriber()
     },
 
     dispatch(action: actionsTypes) {
@@ -103,6 +97,17 @@ export const store: storeType = {
                 this._state.profilePage.textAreaValue = action.payload.value
                 this._callTheSubscriber()
                 break;
+
+            case "CHANGE-NEW-MESSAGE-TEXT":
+                this._state.dialogsPage.textAreaValue = action.payload.text
+                this._callTheSubscriber()
+                break;
+
+            case "ADD-MESSAGE":
+                this._state.dialogsPage.messagesData[action.payload.currentUser].push(
+                    {messageID: Date.now().toString(), title: this._state.dialogsPage.textAreaValue})
+                this._callTheSubscriber()
+                break;
         }
     }
 }
@@ -116,4 +121,12 @@ export const changeTextAreaValueAC = (value: string): changeTextAreaValueType =>
         type: 'CHANGE-TEXT-AREA-VALUE',
         payload: {value: value}
     } as const
+}
+
+export const changeNewMessageTextAC = (value: string): changeNewMessageTextType => {
+    return {type: "CHANGE-NEW-MESSAGE-TEXT", payload: {text: value}} as const
+}
+
+export const addMessageAC = (currentUser: string) => {
+    return {type: 'ADD-MESSAGE', payload: {currentUser: currentUser}} as const
 }
