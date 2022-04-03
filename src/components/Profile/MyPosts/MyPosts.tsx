@@ -1,38 +1,43 @@
-import React, {ChangeEvent, LegacyRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
-import {addPostAC, changeTextAreaValueAC} from "../../../redux/profile-reducer";
-import {actionsTypes, profilePageType} from "../../../redux/store";
-
-
+import {postType} from "../../../redux/store";
 
 
 type propsType = {
-    // profilePage: postType[]
-    profilePage: profilePageType
-    dispatch: (action: actionsTypes) => void
+    addPostButtonHandler: () => void
+    textAreaValue: string
+    onTextAreaChange: (text: string) => void
+    postsData: postType[]
 }
 
 // const MyPosts: React.FC<propsType> = ( {postsData, addPost, ...restProps} ) => {
-const MyPosts: React.FC<propsType> = (props) => {
-    const postsData = props.profilePage.postsData
-
-    const newPostElement: LegacyRef<HTMLTextAreaElement> = React.createRef()
-
-    const addPostButtonHandler = () => {
-        props.dispatch(addPostAC())
-        //   addPost()
-    }
+const MyPosts: React.FC<propsType> = (
+    {
+        textAreaValue,
+        addPostButtonHandler,
+        onTextAreaChange,
+        postsData
+    }) => {
+    // const postsData = props.profilePage.postsData
+    //
+    // const newPostElement: LegacyRef<HTMLTextAreaElement> = React.createRef()
+    //
+    // const addPostButtonHandler = () => {
+    //     props.dispatch(addPostAC())
+    //     //   addPost()
+    // }
 
     const onTextAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         // changeTextAreaValue(e.currentTarget.value)
         // props.dispatch({type: 'CHANGE-TEXT-AREA-VALUE', payload: {value: e.currentTarget.value}})
-        props.dispatch(changeTextAreaValueAC(e.currentTarget.value))
+        // props.dispatch(changeTextAreaValueAC(e.currentTarget.value))
+        onTextAreaChange(e.currentTarget.value)
     }
 
     return (
         <div className={'p10'}>
             <div className={'postForm'}>
-                <textarea ref={newPostElement} value={props.profilePage.textAreaValue}
+                <textarea value={textAreaValue}
                           onChange={onTextAreaChangeHandler}/>
                 <div>
                     <button onClick={addPostButtonHandler}>add post</button>

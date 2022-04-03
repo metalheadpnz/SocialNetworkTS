@@ -11,7 +11,7 @@ const rerenderEntireTree = (state: stateType) => {
     ReactDOM.render(
         <HashRouter>
             {/*<React.StrictMode>*/}
-            <App state={state} dispatch={store.dispatch} store={store}/>
+            <App  store={store}/>
             {/*</React.StrictMode>*/}
         </HashRouter>,
         document.getElementById('root')

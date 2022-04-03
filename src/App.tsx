@@ -9,11 +9,10 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
-import {actionsTypes, stateType, storeType} from "./redux/store";
+import {storeType} from "./redux/store";
+
 
 type propsType = {
-    state: stateType
-    dispatch: (action: actionsTypes) => void
     store: storeType
 }
 
@@ -28,11 +27,9 @@ function App(props: propsType) {
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                     <Route path={'/profile'}
-                           element={<Profile dispatch={props.dispatch.bind(props.store)}
-                                             profilePage={props.state.profilePage}/>}/>
+                           element={<Profile store={props.store}/>}/>
                     <Route path={'/dialogs/*'}
-                           element={<Dialogs dispatch={props.dispatch.bind(props.store)}
-                                             dialogsPage={props.state.dialogsPage}/>}/>
+                           element={<Dialogs store={props.store}/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>

@@ -4,18 +4,24 @@ import {useParams} from "react-router-dom";
 import Messages from "./Messages";
 import DialogItem from "./DialogItem";
 // import {dialogPageActionTypes, dialogsPageTypes, dialogType, messageDataType} from "../../redux/dialogs-reducer";
-import SendMessageForm from "./SendMessageForm";
-import {actionsTypes, dialogsPageTypes} from "../../redux/store";
+import {storeType} from "../../redux/store";
+import SendMessageFormContainer from "./SendMessageFormContainer";
 
 
 type propsType = {
-    dialogsPage: dialogsPageTypes
-    dispatch: (newMessageText: actionsTypes) => void
+    store: storeType
 }
 
+// type propsType = {
+//     store: storeType
+//     dialogsPage: dialogsPageTypes
+//     dispatch: (newMessageText: actionsTypes) => void
+// }
+
 const Dialogs: React.FC<propsType> = (props) => {
-    const dialogsData = props.dialogsPage.dialogsData
-    const messagesData = props.dialogsPage.messagesData
+    const state = props.store.getState()
+    const dialogsData = state.dialogsPage.dialogsData
+    const messagesData = state.dialogsPage.messagesData
     const userIDFromURL: string | undefined = useParams<"*">()["*"]
 
     console.log()
@@ -33,9 +39,11 @@ const Dialogs: React.FC<propsType> = (props) => {
                         : <div>Please, select the Dialog</div>}
                 </div>
             </div>
-            <SendMessageForm currentUser={userIDFromURL}
-                             newMessageText={props.dialogsPage.textAreaValue}
-                             dispatch={props.dispatch}/>
+            <SendMessageFormContainer currentUser={userIDFromURL}
+                                      store={props.store}/>
+            {/*<SendMessageForm currentUser={userIDFromURL}*/}
+            {/*                 newMessageText={props.dialogsPage.textAreaValue}*/}
+            {/*                 dispatch={props.dispatch}/>*/}
         </div>
     );
 };
