@@ -3,13 +3,14 @@ import s from './Dialogs.module.css'
 import {useParams} from "react-router-dom";
 import Messages from "./Messages";
 import DialogItem from "./DialogItem";
-import {dialogPageActionTypes, dialogsPageTypes, dialogType, messageDataType} from "../../redux/store";
+// import {dialogPageActionTypes, dialogsPageTypes, dialogType, messageDataType} from "../../redux/dialogs-reducer";
 import SendMessageForm from "./SendMessageForm";
+import {actionsTypes, dialogsPageTypes} from "../../redux/store";
 
 
 type propsType = {
     dialogsPage: dialogsPageTypes
-    dispatch: (newMessageText: dialogPageActionTypes) => void
+    dispatch: (newMessageText: actionsTypes) => void
 }
 
 const Dialogs: React.FC<propsType> = (props) => {

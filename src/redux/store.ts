@@ -1,5 +1,7 @@
+import {addPostActionType, changeTextAreaValueActionType, profileReducer} from "./profile-reducer";
+import {addMessageActionType, changeNewMessageTextActionType, dialogsReducer} from "./dialogs-reducer";
+
 export type dialogType = { id: string, name: string }
-export type messageDataType = { [userID: string]: messageType[] }
 export type messageType = { messageID: string, title: string }
 export type dialogsPageTypes = {
     dialogsData: dialogType[],
@@ -8,13 +10,13 @@ export type dialogsPageTypes = {
 
 }
 export type postType = { id: string, message: string, likeCounter: number }
-export type profilePageType = { profilePage: postType[] }
+export type profilePageType = {
+    postsData: postType[]
+    textAreaValue: string
+}
 export type textAreaValue = string
 export type stateType = {
-    profilePage: {
-        postsData: postType[],
-        textAreaValue: string
-    },
+    profilePage: profilePageType
     dialogsPage: dialogsPageTypes
 }
 export type storeType = {
@@ -24,13 +26,12 @@ export type storeType = {
     subscribe(observer: () => void): void
     dispatch(action: { type: string }): void
 }
-export type  addPostActionType = { type: 'ADD-POST' }
-export type changeTextAreaValueType = { type: 'CHANGE-TEXT-AREA-VALUE', payload: any }
-export type changeNewMessageTextType = { type: 'CHANGE-NEW-MESSAGE-TEXT', payload: { text: string } }
-export type addMessageType = ReturnType<typeof addMessageAC>
-export type dialogPageActionTypes = changeNewMessageTextType | addMessageType
-export type profilePageActionTypes = addPostActionType | changeTextAreaValueType
-export type actionsTypes = profilePageActionTypes | dialogPageActionTypes
+export type actionsTypes =
+    changeNewMessageTextActionType
+    | addMessageActionType
+    | addPostActionType
+    | changeTextAreaValueActionType
+
 
 export const store: storeType = {
     _state: {
@@ -81,52 +82,8 @@ export const store: storeType = {
     },
 
     dispatch(action: actionsTypes) {
-        switch (action.type) {
-
-            case 'ADD-POST' :
-                this._state.profilePage.postsData.push({
-                    id: Date.now().toString(),
-                    message: this._state.profilePage.textAreaValue,
-                    likeCounter: 0
-                })
-                this._state.profilePage.textAreaValue = ''
-                this._callTheSubscriber()
-                break;
-
-            case 'CHANGE-TEXT-AREA-VALUE':
-                this._state.profilePage.textAreaValue = action.payload.value
-                this._callTheSubscriber()
-                break;
-
-            case "CHANGE-NEW-MESSAGE-TEXT":
-                this._state.dialogsPage.textAreaValue = action.payload.text
-                this._callTheSubscriber()
-                break;
-
-            case "ADD-MESSAGE":
-                this._state.dialogsPage.messagesData[action.payload.currentUser].push(
-                    {messageID: Date.now().toString(), title: this._state.dialogsPage.textAreaValue})
-                this._callTheSubscriber()
-                break;
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._callTheSubscriber()
     }
-}
-
-export const addPostAC = (): addPostActionType => (
-    {type: 'ADD-POST'} as const
-)
-
-export const changeTextAreaValueAC = (value: string): changeTextAreaValueType => {
-    return {
-        type: 'CHANGE-TEXT-AREA-VALUE',
-        payload: {value: value}
-    } as const
-}
-
-export const changeNewMessageTextAC = (value: string): changeNewMessageTextType => {
-    return {type: "CHANGE-NEW-MESSAGE-TEXT", payload: {text: value}} as const
-}
-
-export const addMessageAC = (currentUser: string) => {
-    return {type: 'ADD-MESSAGE', payload: {currentUser: currentUser}} as const
 }

@@ -1,17 +1,15 @@
 import React, {ChangeEvent, LegacyRef} from 'react';
 import Post from "./Post/Post";
-import {addPostAC, changeTextAreaValueAC, postType} from "../../../redux/store";
+import {addPostAC, changeTextAreaValueAC} from "../../../redux/profile-reducer";
+import {actionsTypes, profilePageType} from "../../../redux/store";
 
 
 
 
 type propsType = {
     // profilePage: postType[]
-    profilePage: {
-        postsData: postType[],
-        textAreaValue: string
-    }
-    dispatch: (action: { type: string, payload?: any }) => void
+    profilePage: profilePageType
+    dispatch: (action: actionsTypes) => void
 }
 
 // const MyPosts: React.FC<propsType> = ( {postsData, addPost, ...restProps} ) => {

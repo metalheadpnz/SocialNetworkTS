@@ -1,10 +1,11 @@
 import React, {ChangeEvent, LegacyRef} from 'react';
 import s from './Dialogs.module.css'
-import {addMessageAC, changeNewMessageTextAC, dialogPageActionTypes} from "../../redux/store";
-//dialogPageActionTypes
+import {actionsTypes} from "../../redux/store";
+import {addMessageAC, changeNewMessageTextAC} from "../../redux/dialogs-reducer";
+
 
 type propsType = {
-    dispatch: (newMessageText: dialogPageActionTypes) => void
+    dispatch: (newMessageText: actionsTypes) => void
     newMessageText: string
     currentUser: string | undefined
 }
