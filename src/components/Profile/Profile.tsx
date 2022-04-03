@@ -2,7 +2,7 @@ import React from 'react';
 // import styles from './Profile.module.css'
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {postType} from "../../redux/store";
+import {actionsTypes, postType} from "../../redux/store";
 
 
 type propsType = {
@@ -10,7 +10,7 @@ type propsType = {
         postsData: postType[],
         textAreaValue: string
     }
-    dispatch: (action: { type: string, payload?: any }) => void,
+    dispatch: (action: actionsTypes) => void,
 }
 
 // const Profile: React.FC<propsType> = ({profilePage, addPost}) => {
