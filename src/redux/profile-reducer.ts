@@ -3,7 +3,16 @@ import {actionsTypes, profilePageType} from "./store";
 export type addPostActionType = ReturnType<typeof addPostAC>
 export type changeTextAreaValueActionType = ReturnType<typeof changeTextAreaValueAC>
 
-export const profileReducer = (state: profilePageType, action: actionsTypes) => {
+const initialState: profilePageType =  {
+        postsData: [
+            {id: '1', message: 'Чики брики', likeCounter: 5},
+            {id: '2', message: 'Тоси боси', likeCounter: 100500},
+            {id: '3', message: 'подержи мое пиво', likeCounter: 99},
+        ],
+        textAreaValue: ''
+    }
+
+export const profileReducer = (state= initialState, action: actionsTypes) => {
     switch (action.type) {
         case 'ADD-POST' :
             state.postsData.push({

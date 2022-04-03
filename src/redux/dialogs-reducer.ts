@@ -3,7 +3,34 @@ import {actionsTypes, dialogsPageTypes} from "./store";
 export type changeNewMessageTextActionType = ReturnType<typeof changeNewMessageTextAC>
 export type addMessageActionType = ReturnType<typeof addMessageAC>
 
-export const dialogsReducer = (state: dialogsPageTypes, action: actionsTypes) => {
+const initialState: dialogsPageTypes = {
+    dialogsData: [
+        {id: '1', name: 'Dimych'},
+        {id: '2', name: 'Linus'},
+        {id: '3', name: 'Elon'},
+        {id: '4', name: 'Mark'}
+    ],
+
+    messagesData: {
+        '1': [
+            {messageID: '1', title: 'Hi!'},
+            {messageID: '2', title: 'ZX-Spectrum is cool!'},
+            {messageID: '3', title: 'ATMega328 is better then ATiny13'}
+        ],
+        '2': [
+            {messageID: '1', title: 'sdsd'},
+
+        ],
+        '3': [
+            {messageID: '1', title: '333!'},
+            {messageID: '2', title: '3333blabla'},],
+        '4': []
+    },
+
+    textAreaValue: '',
+}
+
+export const dialogsReducer = (state = initialState, action: actionsTypes) => {
     switch (action.type) {
         case "CHANGE-NEW-MESSAGE-TEXT":
             state.textAreaValue = action.payload.text
