@@ -5,17 +5,17 @@ import App from './App';
 import {HashRouter} from "react-router-dom";
 
 import {stateType, store} from "./redux/store";
-import StoreContext from './StoreContext';
+import StoreContext, {Provider} from './StoreContext';
 
 
 const rerenderEntireTree = (state: stateType) => {
     ReactDOM.render(
         <HashRouter>
-            <StoreContext.Provider value={store}>
+            <Provider store={store}>
                 {/*<React.StrictMode>*/}
                 <App/>
                 {/*</React.StrictMode>*/}
-            </StoreContext.Provider>
+            </Provider>
         </HashRouter>,
         document.getElementById('root')
     );
