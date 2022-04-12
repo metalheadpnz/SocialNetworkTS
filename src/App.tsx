@@ -10,13 +10,14 @@ import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
 import {storeType} from "./redux/store";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
-type propsType = {
-    store: storeType
-}
+// type propsType = {
+//     store: storeType
+// }
 
-function App(props: propsType) {
+function App() {
 
     return (
         <div className="app-wrapper">
@@ -27,9 +28,9 @@ function App(props: propsType) {
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                     <Route path={'/profile'}
-                           element={<Profile store={props.store}/>}/>
+                           element={<Profile/>}/>
                     <Route path={'/dialogs/*'}
-                           element={<Dialogs store={props.store}/>}/>
+                           element={<DialogsContainer/>}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
