@@ -5,7 +5,8 @@ import App from './App';
 import {HashRouter} from "react-router-dom";
 
 import {stateType, store} from "./redux/store";
-import StoreContext, {Provider} from './StoreContext';
+import { Provider } from 'react-redux';
+
 
 
 const rerenderEntireTree = (state: stateType) => {

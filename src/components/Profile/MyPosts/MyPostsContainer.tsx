@@ -3,41 +3,63 @@ import {storeType} from "../../../redux/store";
 import MyPosts from "./MyPosts";
 import {addPostAC, changeTextAreaValueAC} from "../../../redux/profile-reducer";
 import StoreContext from '../../../StoreContext';
+import {connect} from 'react-redux';
 
 // type propsType = {
 //     store: storeType
 // }
 
-const MyPostsContainer: React.FC = () => {
+// const MyPostsContainerDel: React.FC = () => {
+//
+//
+//     return (
+//         <StoreContext.Consumer>
+//             {(store) => {
+//                 const state = store.getState()
+//                 const dispatch = store.dispatch.bind(store)
+//
+//                 const addPostButtonHandler = () => {
+//                     dispatch(addPostAC())
+//                 }
+//
+//                 const onTextAreaChange = (newtextAreaValue: string) => {
+//                     // changeTextAreaValue(e.currentTarget.value)
+//                     // props.dispatch({type: 'CHANGE-TEXT-AREA-VALUE', payload: {value: e.currentTarget.value}})
+//                     dispatch(changeTextAreaValueAC(newtextAreaValue))
+//                 }
+//
+//                 return (
+//                     <MyPosts postsData={state.profilePage.postsData}
+//                              textAreaValue={state.profilePage.textAreaValue}
+//                              addPostButtonHandler={addPostButtonHandler}
+//                              onTextAreaChange={onTextAreaChange}/>
+//                 )
+//             }
+//             }
+//
+//         </StoreContext.Consumer>
+//     )
+// };
+
+let mapStateToProps = (state) => {
+    return {
+        postsData: state.profilePage.postsData,
+        textAreaValue: state.profilePage.textAreaValue,
+    }
+}
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        addPostButtonHandler: () => {
+            dispatch(addPostAC())
+        },
+        onTextAreaChange: (newtextAreaValue) => {
+            dispatch(changeTextAreaValueAC(newtextAreaValue))
+        }
+    }
+}
 
 
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-                const state = store.getState()
-                const dispatch = store.dispatch.bind(store)
-
-                const addPostButtonHandler = () => {
-                    dispatch(addPostAC())
-                }
-
-                const onTextAreaChange = (newtextAreaValue: string) => {
-                    // changeTextAreaValue(e.currentTarget.value)
-                    // props.dispatch({type: 'CHANGE-TEXT-AREA-VALUE', payload: {value: e.currentTarget.value}})
-                    dispatch(changeTextAreaValueAC(newtextAreaValue))
-                }
-
-                return (
-                    <MyPosts postsData={state.profilePage.postsData}
-                             textAreaValue={state.profilePage.textAreaValue}
-                             addPostButtonHandler={addPostButtonHandler}
-                             onTextAreaChange={onTextAreaChange}/>
-                )
-            }
-            }
-
-        </StoreContext.Consumer>
-    )
-};
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;

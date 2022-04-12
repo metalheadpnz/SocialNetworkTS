@@ -6,7 +6,7 @@ import DialogItem from "./DialogItem";
 // import {dialogPageActionTypes, dialogsPageTypes, dialogType, messageDataType} from "../../redux/dialogs-reducer";
 import {dialogType, messageType, storeType} from "../../redux/store";
 import SendMessageFormContainer from "./SendMessageFormContainer";
-import StoreContext from '../../StoreContext';
+
 
 
 type propsType = {
@@ -33,8 +33,8 @@ const Dialogs: React.FC<propsType> = ({dialogsData, messagesData, store}) => {
                         : <div>Please, select the Dialog</div>}
                 </div>
             </div>
-            <SendMessageFormContainer currentUser={userIDFromURL}
-                                      store={store}/>
+            {/*<SendMessageFormContainer currentUser={userIDFromURL}*/}
+            {/*                          store={store}/>*/}
         </div>
     )
 };
