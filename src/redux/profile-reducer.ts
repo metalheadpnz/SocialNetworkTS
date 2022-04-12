@@ -1,7 +1,11 @@
-import {actionsTypes, profilePageType} from "./store";
-
 export type addPostActionType = ReturnType<typeof addPostAC>
 export type changeTextAreaValueActionType = ReturnType<typeof changeTextAreaValueAC>
+type actionsTypes = addPostActionType | changeTextAreaValueActionType
+export type profilePageType = {
+    postsData: postType[]
+    textAreaValue: string
+}
+export type postType = { id: string, message: string, likeCounter: number }
 
 const initialState: profilePageType = {
     postsData: [
@@ -12,20 +16,21 @@ const initialState: profilePageType = {
     textAreaValue: ''
 }
 
-export const profileReducer = (state = initialState, action: actionsTypes) => {
+export const profileReducer = (state = initialState, action: actionsTypes): profilePageType => {
     switch (action.type) {
         case 'ADD-POST' :
-            state.postsData.push({
-                id: Date.now().toString(),
-                message: state.textAreaValue,
-                likeCounter: 0
-            })
-            state.textAreaValue = ''
-            break;
+            console.log(state.textAreaValue)
+            return {
+                ...state, postsData: [...state.postsData, {
+                    id: Date.now().toString(),
+                    message: state.textAreaValue,
+                    likeCounter: 0
+                }]
+            }
 
         case 'CHANGE-TEXT-AREA-VALUE':
-            state.textAreaValue = action.payload.value
-            break;
+            // state.textAreaValue = action.payload.value
+            return {...state, textAreaValue: action.payload.value}
     }
     return state
 }

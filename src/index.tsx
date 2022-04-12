@@ -4,28 +4,20 @@ import './index.css';
 import App from './App';
 import {HashRouter} from "react-router-dom";
 
-import {stateType, store} from "./redux/store";
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
+import {store} from "./redux/store";
 
 
+ReactDOM.render(
+    <HashRouter>
+        <Provider store={store}>
+            {/*<React.StrictMode>*/}
+            <App/>
+            {/*</React.StrictMode>*/}
+        </Provider>
+    </HashRouter>,
+    document.getElementById('root')
+);
 
-const rerenderEntireTree = (state: stateType) => {
-    ReactDOM.render(
-        <HashRouter>
-            <Provider store={store}>
-                {/*<React.StrictMode>*/}
-                <App/>
-                {/*</React.StrictMode>*/}
-            </Provider>
-        </HashRouter>,
-        document.getElementById('root')
-    );
-}
-
-rerenderEntireTree(store.getState())
-
-store.subscribe(() => {
-    rerenderEntireTree(store.getState())
-})
 
 

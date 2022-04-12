@@ -1,18 +1,15 @@
 import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
+import {SendMessageFormPropsType} from "./SendMessageFormContainer";
 
 
-
-type propsType = {
-    textAreaValue: string
-    sendMessage: () => void
-    updateTextArea: (text: string) => void
-}
+type propsType = SendMessageFormPropsType
 const SendMessageForm: React.FC<propsType> = (
     {
         textAreaValue,
         sendMessage,
-        updateTextArea
+        updateTextArea,
+        currentUser,
     }
 ) => {
 
@@ -20,12 +17,16 @@ const SendMessageForm: React.FC<propsType> = (
         updateTextArea(e.currentTarget.value)
     }
 
+    const sendMessageButtonHandler = () => {
+        currentUser ? sendMessage(currentUser) : alert('select the dialog')
+    }
+
     return (
         <div className={s.sendMessageForm}>
             <textarea onChange={onTextAreaChangeHandler}
                       value={textAreaValue}/>
             <div>
-                <button onClick={sendMessage}>send message</button>
+                <button onClick={sendMessageButtonHandler}>send message</button>
             </div>
 
         </div>

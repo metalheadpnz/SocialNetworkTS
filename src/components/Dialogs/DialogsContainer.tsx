@@ -1,37 +1,25 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Dialogs from "./Dialogs";
+import {dialogsPageTypes, dialogType, messageType} from "../../redux/dialogs-reducer";
+import {AppStateType} from "../../redux/store";
 
-// const DialogsContainer = () => {
-//     return (
-//         <StoreContext.Consumer>
-//             {(store) => {
-//                 const state = store.getState()
-//                 const dialogsData = state.dialogsPage.dialogsData
-//                 const messagesData = state.dialogsPage.messagesData
-//
-//                 return (
-//                     <Dialogs dialogsData={dialogsData}
-//                              messagesData={messagesData}
-//                              store={store}
-//                     />
-//                 )
-//             }}
-//
-//         </StoreContext.Consumer>
-//     );
-// };
+type mapStateToPropsType = {
+    dialogsData: dialogType[]
+    messagesData: { [userID: string]: messageType[] }
+}
 
-let mapStateToProps = (state) => {
+
+export type DialogsPropsType = dialogsPageTypes
+
+let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         dialogsData: state.dialogsPage.dialogsData,
-        messagesData: state.dialogsPage.messagesData
+        messagesData: state.dialogsPage.messagesData,
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {}
-}
 
-const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+const DialogsContainer = connect(mapStateToProps)(Dialogs)
+
 
 export default DialogsContainer;

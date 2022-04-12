@@ -1,28 +1,32 @@
 import React from 'react';
-import {storeType} from "../../redux/store";
 import SendMessageForm from "./SendMessageForm";
 import {addMessageAC, changeNewMessageTextAC} from "../../redux/dialogs-reducer";
+import {connect} from 'react-redux';
+import {AppStateType} from "../../redux/store";
+import {Dispatch} from "redux";
 
-type propTypes = {
-    store: storeType
-    currentUser: string | undefined
+type mapDispatchToProps = {
+    updateTextArea: (text: string) => void
+    sendMessage: (currentUser: string) => void
 }
 
-const SendMessageFormContainer: React.FC<propTypes> = (props) => {
-    const state = props.store.getState()
-    const dispatch = props.store.dispatch.bind(props.store)
+export type SendMessageFormPropsType = mapDispatchToProps  & {currentUser: string, textAreaValue: string}
 
-    const sendMessage = () => {
-        props.currentUser ? dispatch(addMessageAC(props.currentUser)) : alert('select the dialog')
+let mapStateToProps = (state: AppStateType) => {
+    return {textAreaValue: state.dialogsPage.textAreaValue}
+}
+
+let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {
+    return {
+        updateTextArea: (text: string) => {
+            dispatch(changeNewMessageTextAC(text))
+        },
+        sendMessage: (currentUser: string) => {
+            dispatch(addMessageAC(currentUser))
+        }
     }
+}
 
-    const updateTextArea = (text: string) => {
-        dispatch(changeNewMessageTextAC(text))
-    }
-
-    return <SendMessageForm updateTextArea={updateTextArea}
-                            sendMessage={sendMessage}
-                            textAreaValue={state.dialogsPage.textAreaValue}/>
-};
+const SendMessageFormContainer: any = connect(mapStateToProps, mapDispatchToProps)(SendMessageForm)
 
 export default SendMessageFormContainer;

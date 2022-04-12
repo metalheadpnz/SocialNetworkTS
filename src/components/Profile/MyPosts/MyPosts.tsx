@@ -1,17 +1,17 @@
 import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
-import {postType} from "../../../redux/store";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
 
-type propsType = {
-    addPostButtonHandler: () => void
-    textAreaValue: string
-    onTextAreaChange: (text: string) => void
-    postsData: postType[]
-}
+// type propsType = {
+//     addPostButtonHandler: () => void
+//     textAreaValue: string
+//     onTextAreaChange: (text: string) => void
+//     postsData: postType[]
+// }
 
 // const MyPosts: React.FC<propsType> = ( {postsData, addPost, ...restProps} ) => {
-const MyPosts: React.FC<propsType> = (
+const MyPosts: React.FC<MyPostsPropsType> = (
     {
         textAreaValue,
         addPostButtonHandler,

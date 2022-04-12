@@ -1,7 +1,14 @@
-import {actionsTypes, dialogsPageTypes} from "./store";
+export type messageType = { messageID: string, title: string }
+export type dialogType = { id: string, name: string }
+export type dialogsPageTypes = {
+    dialogsData: dialogType[],
+    messagesData: { [userID: string]: messageType[] }
+    textAreaValue: string
+}
 
 export type changeNewMessageTextActionType = ReturnType<typeof changeNewMessageTextAC>
 export type addMessageActionType = ReturnType<typeof addMessageAC>
+type actionsTypes = changeNewMessageTextActionType | addMessageActionType
 
 const initialState: dialogsPageTypes = {
     dialogsData: [
@@ -33,12 +40,22 @@ const initialState: dialogsPageTypes = {
 export const dialogsReducer = (state = initialState, action: actionsTypes) => {
     switch (action.type) {
         case "CHANGE-NEW-MESSAGE-TEXT":
-            state.textAreaValue = action.payload.text
-            break;
+            return {...state, textAreaValue: action.payload.text}
 
         case "ADD-MESSAGE":
-            state.messagesData[action.payload.currentUser].push(
-                {messageID: Date.now().toString(), title: state.textAreaValue})
+            return {
+                ...state, textAreaValue:'',
+                messagesData: {
+                    ...state.messagesData,
+                    [action.payload.currentUser]:
+                        [...state.messagesData[action.payload.currentUser],
+                            {
+                                messageID: Date.now().toString(),
+                                title: state.textAreaValue
+                            }
+                        ]
+                }
+            }
     }
     return state
 }

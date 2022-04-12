@@ -1,10 +1,18 @@
 import React from 'react';
-import {storeType} from "../../../redux/store";
 import MyPosts from "./MyPosts";
-import {addPostAC, changeTextAreaValueAC} from "../../../redux/profile-reducer";
-import StoreContext from '../../../StoreContext';
+import {addPostAC, changeTextAreaValueAC, profilePageType} from "../../../redux/profile-reducer";
 import {connect} from 'react-redux';
+import News from "../../News";
+import Profile from "../Profile";
+import {AppStateType} from "../../../redux/store";
+import {Dispatch} from "redux";
 
+type mapDispatchToPropsType = {
+    addPostButtonHandler: () => void,
+    onTextAreaChange: (newTextAreaValue: string) => void
+}
+
+export type MyPostsPropsType = mapDispatchToPropsType & profilePageType
 // type propsType = {
 //     store: storeType
 // }
@@ -41,25 +49,27 @@ import {connect} from 'react-redux';
 //     )
 // };
 
-let mapStateToProps = (state) => {
+
+let mapStateToProps = (state: AppStateType): profilePageType => {
     return {
         postsData: state.profilePage.postsData,
         textAreaValue: state.profilePage.textAreaValue,
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
+
+let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     return {
         addPostButtonHandler: () => {
             dispatch(addPostAC())
         },
-        onTextAreaChange: (newtextAreaValue) => {
-            dispatch(changeTextAreaValueAC(newtextAreaValue))
+        onTextAreaChange: (newTextAreaValue: string) => {
+            dispatch(changeTextAreaValueAC(newTextAreaValue))
         }
     }
 }
 
-
 const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+
 
 export default MyPostsContainer;

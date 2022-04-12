@@ -3,19 +3,12 @@ import s from './Dialogs.module.css'
 import {useParams} from "react-router-dom";
 import Messages from "./Messages";
 import DialogItem from "./DialogItem";
-// import {dialogPageActionTypes, dialogsPageTypes, dialogType, messageDataType} from "../../redux/dialogs-reducer";
-import {dialogType, messageType, storeType} from "../../redux/store";
+
 import SendMessageFormContainer from "./SendMessageFormContainer";
+import {DialogsPropsType} from "./DialogsContainer";
 
 
-
-type propsType = {
-    dialogsData: dialogType[]
-    messagesData: { [userID: string]: messageType[] }
-    store: storeType
-}
-
-const Dialogs: React.FC<propsType> = ({dialogsData, messagesData, store}) => {
+const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData}) => {
 
     const userIDFromURL: string | undefined = useParams<"*">()["*"]
 
@@ -33,8 +26,7 @@ const Dialogs: React.FC<propsType> = ({dialogsData, messagesData, store}) => {
                         : <div>Please, select the Dialog</div>}
                 </div>
             </div>
-            {/*<SendMessageFormContainer currentUser={userIDFromURL}*/}
-            {/*                          store={store}/>*/}
+            <SendMessageFormContainer currentUser={userIDFromURL}/>
         </div>
     )
 };
