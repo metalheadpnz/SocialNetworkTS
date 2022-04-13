@@ -4,13 +4,15 @@ import Dialogs from "./Dialogs";
 import {dialogsPageTypes, dialogType, messageType} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/store";
 
+
 type mapStateToPropsType = {
     dialogsData: dialogType[]
-    messagesData: { [userID: string]: messageType[] }
+    messagesData: {
+        [userID: string]: messageType[]
+    }
 }
 
-
-export type DialogsPropsType = dialogsPageTypes
+export type DialogsPropsType = Omit<dialogsPageTypes, 'textAreaValue'>
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
@@ -19,7 +21,4 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-const DialogsContainer = connect(mapStateToProps)(Dialogs)
-
-
-export default DialogsContainer;
+export const DialogsContainer = connect(mapStateToProps, {})(Dialogs)

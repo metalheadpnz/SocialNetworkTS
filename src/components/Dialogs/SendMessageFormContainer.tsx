@@ -5,12 +5,14 @@ import {connect} from 'react-redux';
 import {AppStateType} from "../../redux/store";
 import {Dispatch} from "redux";
 
+
 type mapDispatchToProps = {
     updateTextArea: (text: string) => void
     sendMessage: (currentUser: string) => void
 }
 
-export type SendMessageFormPropsType = mapDispatchToProps  & {currentUser: string, textAreaValue: string}
+export type SendMessageFormPropsType = mapDispatchToProps
+    & {currentUser: string | undefined, textAreaValue: string}
 
 let mapStateToProps = (state: AppStateType) => {
     return {textAreaValue: state.dialogsPage.textAreaValue}
@@ -27,6 +29,5 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToProps => {
     }
 }
 
-const SendMessageFormContainer: any = connect(mapStateToProps, mapDispatchToProps)(SendMessageForm)
+export const SendMessageFormContainer = connect(mapStateToProps, mapDispatchToProps)(SendMessageForm)
 
-export default SendMessageFormContainer;

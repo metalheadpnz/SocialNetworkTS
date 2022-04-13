@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 import Messages from "./Messages";
 import DialogItem from "./DialogItem";
 
-import SendMessageFormContainer from "./SendMessageFormContainer";
+import {SendMessageFormContainer} from "./SendMessageFormContainer";
 import {DialogsPropsType} from "./DialogsContainer";
 
 

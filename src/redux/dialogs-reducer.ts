@@ -40,11 +40,11 @@ const initialState: dialogsPageTypes = {
 export const dialogsReducer = (state = initialState, action: actionsTypes) => {
     switch (action.type) {
         case "CHANGE-NEW-MESSAGE-TEXT":
-            return {...state, textAreaValue: action.payload.text}
+         return {...state, textAreaValue: action.payload.text}
 
         case "ADD-MESSAGE":
             return {
-                ...state, textAreaValue:'',
+                ...state, textAreaValue: '',
                 messagesData: {
                     ...state.messagesData,
                     [action.payload.currentUser]:

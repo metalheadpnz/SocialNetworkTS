@@ -8,7 +8,7 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
                     <Route path={'/profile'}
                            element={<Profile/>}/>
                     <Route path={'/dialogs/*'}
-                           element={<DialogsContainer textAreaValue={''}/>}/>
+                           element={<DialogsContainer />}/>
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
