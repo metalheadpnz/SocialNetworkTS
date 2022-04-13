@@ -19,9 +19,11 @@ const initialState: profilePageType = {
 export const profileReducer = (state = initialState, action: actionsTypes): profilePageType => {
     switch (action.type) {
         case 'ADD-POST' :
-            console.log(state.textAreaValue)
+
             return {
-                ...state, postsData: [...state.postsData, {
+                ...state,
+                textAreaValue: '',
+                postsData: [...state.postsData, {
                     id: Date.now().toString(),
                     message: state.textAreaValue,
                     likeCounter: 0

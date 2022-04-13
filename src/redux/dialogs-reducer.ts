@@ -44,7 +44,8 @@ export const dialogsReducer = (state = initialState, action: actionsTypes) => {
 
         case "ADD-MESSAGE":
             return {
-                ...state, textAreaValue: '',
+                ...state,
+                textAreaValue: '',
                 messagesData: {
                     ...state.messagesData,
                     [action.payload.currentUser]:

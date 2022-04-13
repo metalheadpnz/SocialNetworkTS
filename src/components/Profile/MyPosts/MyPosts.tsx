@@ -2,15 +2,6 @@ import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
 
-
-// type propsType = {
-//     addPostButtonHandler: () => void
-//     textAreaValue: string
-//     onTextAreaChange: (text: string) => void
-//     postsData: postType[]
-// }
-
-// const MyPosts: React.FC<propsType> = ( {postsData, addPost, ...restProps} ) => {
 const MyPosts: React.FC<MyPostsPropsType> = (
     {
         textAreaValue,
@@ -18,19 +9,10 @@ const MyPosts: React.FC<MyPostsPropsType> = (
         onTextAreaChange,
         postsData
     }) => {
-    // const postsData = props.profilePage.postsData
-    //
-    // const newPostElement: LegacyRef<HTMLTextAreaElement> = React.createRef()
-    //
-    // const addPostButtonHandler = () => {
-    //     props.dispatch(addPostAC())
-    //     //   addPost()
-    // }
+
 
     const onTextAreaChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        // changeTextAreaValue(e.currentTarget.value)
-        // props.dispatch({type: 'CHANGE-TEXT-AREA-VALUE', payload: {value: e.currentTarget.value}})
-        // props.dispatch(changeTextAreaValueAC(e.currentTarget.value))
+
         onTextAreaChange(e.currentTarget.value)
     }
 

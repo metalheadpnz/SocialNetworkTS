@@ -2,12 +2,7 @@ import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-
-// type propsType = {
-//     store: storeType
-// }
-
-const Profile: React.FC = (props) => {
+const Profile: React.FC = () => {
 
     return (
         <div>
