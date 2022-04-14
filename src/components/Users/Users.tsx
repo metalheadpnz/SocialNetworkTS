@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {AppStateType} from "../../redux/store";
 import {followAC, setUserAC, unFollowAC, userType} from "../../redux/users-reducer";
 import {Dispatch} from "redux";
+import axios from 'axios';
+
 
 type mapStateToPropsType = {
     users: userType[]
@@ -19,29 +21,36 @@ export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 export const Users: React.FC<UsersPropsType> = ({users, follow, unFollow, setUsers}) => {
 
     if (!users.length) {
-        setUsers([
-            {
-                id: 1,
-                fullName: 'Andrey',
-                status: "I'am a junior",
-                location: {country: 'Russia', city: 'Penza'},
-                followed: true
-            },
-            {
-                id: 2,
-                fullName: 'James',
-                status: "Kill em all",
-                location: {country: 'USA', city: 'San Francisco'},
-                followed: true
-            },
-            {
-                id: 3,
-                fullName: 'Dimych',
-                status: "show me the money",
-                location: {country: 'Belarus', city: 'Minsk'},
-                followed: false
-            }
-        ])
+
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                console.log(response.data.items)
+                setUsers(response.data.items)
+            })
+
+        // setUsers([
+        //     {
+        //         id: 1,
+        //         fullName: 'Andrey',
+        //         status: "I'am a junior",
+        //         location: {country: 'Russia', city: 'Penza'},
+        //         followed: true
+        //     },
+        //     {
+        //         id: 2,
+        //         fullName: 'James',
+        //         status: "Kill em all",
+        //         location: {country: 'USA', city: 'San Francisco'},
+        //         followed: true
+        //     },
+        //     {
+        //         id: 3,
+        //         fullName: 'Dimych',
+        //         status: "show me the money",
+        //         location: {country: 'Belarus', city: 'Minsk'},
+        //         followed: false
+        //     }
+        // ])
     }
 
     return <div>
@@ -51,15 +60,10 @@ export const Users: React.FC<UsersPropsType> = ({users, follow, unFollow, setUse
 
                 </div>
                 <div>
-                    {u.fullName}
+                    {u.name}
                 </div>
                 <div>
                     {u.status}
-                </div>
-                <div>
-                    <span>{u.location.country}</span>
-                    &nbsp;
-                    <span>{u.location.city}</span>
                 </div>
                 <span>{u.followed ? 'подписан' : 'не подписан'}</span>
                 {u.followed

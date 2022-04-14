@@ -8,13 +8,28 @@ export type locationType = {
     city: string
 }
 
+// export type userType = {
+//     id: number
+//     fullName: string
+//     status: string
+//     location: locationType
+//     followed: boolean
+// }
+
 export type userType = {
-    id: number
-    fullName: string
-    status: string
-    location: locationType
-    followed: boolean
+    "name": string,
+    "id": number,
+    "uniqueUrlName": null | string,
+    "photos": {
+    "small": null | string,
+        "large": null | string
+},
+    "status": null | string,
+    "followed": boolean
 }
+
+
+
 
 export type initialStateType = {
     users: userType[]
