@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {AppStateType} from "../../redux/store";
 import {followAC, setUserAC, unFollowAC, userType} from "../../redux/users-reducer";
@@ -27,6 +27,8 @@ export const Users: React.FC<UsersPropsType> = ({users, follow, unFollow, setUse
                 setUsers(response.data.items)
             })
     }
+
+    useEffect(getUsers, [])
 
     return <div>
         <button onClick={getUsers}>getUsers</button>
