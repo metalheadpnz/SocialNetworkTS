@@ -11,6 +11,9 @@ const Navbar: React.FC = () => {
                 <NavLink to="/profile" className={NavLinksClassName}>Profile</NavLink>
             </div>
             <div className={s.navLinkWrap}>
+                <NavLink to="/users" className={NavLinksClassName}>Users</NavLink>
+            </div>
+            <div className={s.navLinkWrap}>
                 <NavLink to="/dialogs" className={NavLinksClassName}>Dialogs</NavLink>
             </div>
             <div className={s.navLinkWrap}>

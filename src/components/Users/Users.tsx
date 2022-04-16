@@ -18,39 +18,52 @@ type mapDispatchToPropsType = {
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 
-export const Users: React.FC<UsersPropsType> = ({users, follow, unFollow, setUsers}) => {
+class Users extends React.Component <UsersPropsType> {
 
-    const getUsers = () => {
+    constructor(props: UsersPropsType) {
+        super(props);
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
-                console.log(response.data.items)
-                setUsers(response.data.items)
+                this.props.setUsers(response.data.items)
+            })
+
+    }
+
+    getUsers = () => {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                this.props.setUsers(response.data.items)
             })
     }
 
-    return <div>
-        <button onClick={getUsers}>getUsers</button>
-        {users.map(u =>
-            <div key={u.id} style={{border: '1px solid black'}}>
-                <div>
+    render() {
+        return (
+            <div>
+                <button onClick={this.getUsers}>getUsers</button>
+                {this.props.users.map(u =>
+                    <div key={u.id} style={{border: '1px solid black'}}>
+                        <div>
 
-                </div>
-                <div>
-                    {u.name}
-                </div>
-                <div>
-                    {u.status}
-                </div>
-                <span>{u.followed ? 'подписан' : 'не подписан'}</span>
-                {u.followed
-                    ? <button onClick={() => unFollow(u.id)}>unfollow</button>
-                    : <button onClick={() => follow(u.id)}>follow</button>
-                }
+                        </div>
+                        <div>
+                            {u.name}
+                        </div>
+                        <div>
+                            {u.status}
+                        </div>
+                        <span>{u.followed ? 'подписан' : 'не подписан'}</span>
+                        {u.followed
+                            ? <button onClick={() => this.props.unFollow(u.id)}>unfollow</button>
+                            : <button onClick={() => this.props.follow(u.id)}>follow</button>
+                        }
+                    </div>
+                )}
             </div>
-        )}
-    </div>
+        );
+    }
 }
 
+export default Users;
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {users: state.usersPage.users}
