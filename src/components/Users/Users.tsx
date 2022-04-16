@@ -20,40 +20,16 @@ export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 
 export const Users: React.FC<UsersPropsType> = ({users, follow, unFollow, setUsers}) => {
 
-    if (!users.length) {
-
+    const getUsers = () => {
         axios.get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
                 console.log(response.data.items)
                 setUsers(response.data.items)
             })
-
-        // setUsers([
-        //     {
-        //         id: 1,
-        //         fullName: 'Andrey',
-        //         status: "I'am a junior",
-        //         location: {country: 'Russia', city: 'Penza'},
-        //         followed: true
-        //     },
-        //     {
-        //         id: 2,
-        //         fullName: 'James',
-        //         status: "Kill em all",
-        //         location: {country: 'USA', city: 'San Francisco'},
-        //         followed: true
-        //     },
-        //     {
-        //         id: 3,
-        //         fullName: 'Dimych',
-        //         status: "show me the money",
-        //         location: {country: 'Belarus', city: 'Minsk'},
-        //         followed: false
-        //     }
-        // ])
     }
 
     return <div>
+        <button onClick={getUsers}>getUsers</button>
         {users.map(u =>
             <div key={u.id} style={{border: '1px solid black'}}>
                 <div>
