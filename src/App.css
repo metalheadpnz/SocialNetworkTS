@@ -20,18 +20,22 @@ body {
     grid-area: c;
 }
 
-.width100{
+.width100 {
     width: 100%;
 }
 
-.p10{
+.p10 {
     padding: 10px;
 }
 
-.pt20{
+.pt20 {
     padding-top: 20px;
 }
 
+.boldRedText {
+    font-weight: bold;
+    color: #e74343;
+}
 
 
 

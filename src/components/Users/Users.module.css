@@ -1,0 +1,23 @@
+.userPicContainer {
+    width: 100px;
+}
+
+.userPic {
+    width: 100px;
+}
+
+.usersContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.userItem {
+    width: 120px;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid lightgray;
+}
+
+.test {
+    background-color: red;
+}
