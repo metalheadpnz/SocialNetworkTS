@@ -1,9 +1,9 @@
-export type followActionType = ReturnType<typeof followAC>
-export type unFollowActionType = ReturnType<typeof unFollowAC>
-export type setUsersActionType = ReturnType<typeof setUserAC>
-export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
-export type setCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
-export type setFetchingActionType = ReturnType<typeof setFetchingAC>
+export type followActionType = ReturnType<typeof follow>
+export type unFollowActionType = ReturnType<typeof unFollow>
+export type setUsersActionType = ReturnType<typeof setUsers>
+export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+export type setCurrentPageActionType = ReturnType<typeof setCurrentPage>
+export type setFetchingActionType = ReturnType<typeof setFetching>
 
 type actionsTypes =
     followActionType
@@ -70,42 +70,42 @@ export const usersReducer = (state = initialState, action: actionsTypes): initia
     }
 }
 
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return {
         type: 'FOLLOW',
         userId: userId
     } as const
 }
 
-export const unFollowAC = (userId: number) => {
+export const unFollow = (userId: number) => {
     return {
         type: 'UNFOLLOW',
         userId: userId
     } as const
 }
 
-export const setUserAC = (users: userType[]) => {
+export const setUsers = (users: userType[]) => {
     return {
         type: 'SET_USERS',
         users: users
     } as const
 }
 
-export const setTotalUsersCountAC = (totalUsersCount: number) => {
+export const setTotalUsersCount = (totalUsersCount: number) => {
     return {
         type: 'SET_TOTAL_USERS_COUNT',
         totalUsersCount
     } as const
 }
 
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
     return {
         type: 'SET_CURRENT_PAGE',
         currentPage
     } as const
 }
 
-export const setFetchingAC = (isFetch: boolean) => {
+export const setFetching = (isFetch: boolean) => {
     return {
         type: 'SET_FETCHING',
         isFetch

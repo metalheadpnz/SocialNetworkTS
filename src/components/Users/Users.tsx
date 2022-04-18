@@ -2,15 +2,15 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {AppStateType} from "../../redux/store";
 import {
-    followAC,
+    follow,
     initialStateType,
-    setCurrentPageAC, setFetchingAC,
-    setTotalUsersCountAC,
-    setUserAC,
-    unFollowAC,
+    setCurrentPage, setFetching,
+    setTotalUsersCount,
+    setUsers,
+    unFollow,
     userType
 } from "../../redux/users-reducer";
-import {Dispatch} from "redux";
+
 import axios from 'axios';
 import s from './Users.module.css'
 import defaultUserPic from '../../img/anonimus.jpg'
@@ -123,27 +123,34 @@ export const Users: React.FC<UsersPropsType> = ({
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => ({...state.usersPage})
 
-let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unFollow: (userId: number) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users: userType[]) => {
-            dispatch(setUserAC(users))
-        },
-        setCurrentPage: (currentpage: number) => {
-            dispatch(setCurrentPageAC(currentpage))
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount))
-        },
-        setFetching: (isFetching: boolean) => {
-            dispatch(setFetchingAC(isFetching))
-        }
-    }
-}
+// let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+//     return {
+//         follow: (userId: number) => {
+//             dispatch(follow(userId))
+//         },
+//         unFollow: (userId: number) => {
+//             dispatch(unFollow(userId))
+//         },
+//         setUsers: (users: userType[]) => {
+//             dispatch(setUsers(users))
+//         },
+//         setCurrentPage: (currentpage: number) => {
+//             dispatch(setCurrentPage(currentpage))
+//         },
+//         setTotalUsersCount: (totalUsersCount: number) => {
+//             dispatch(setTotalUsersCount(totalUsersCount))
+//         },
+//         setFetching: (isFetching: boolean) => {
+//             dispatch(setFetching(isFetching))
+//         }
+//     }
+// }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, {
+    follow,
+    unFollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    setFetching
+})(Users)
