@@ -4,7 +4,7 @@ import {AppStateType} from "../../redux/store";
 import {
     followAC,
     initialStateType,
-    setCurrentPageAC,
+    setCurrentPageAC, setFetchingAC,
     setTotalUsersCountAC,
     setUserAC,
     unFollowAC,
@@ -14,6 +14,7 @@ import {Dispatch} from "redux";
 import axios from 'axios';
 import s from './Users.module.css'
 import defaultUserPic from '../../img/anonimus.jpg'
+import Preloader from "../common/Preloader";
 
 
 type mapStateToPropsType = initialStateType
@@ -24,6 +25,7 @@ type mapDispatchToPropsType = {
     setUsers: (users: userType[]) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     setCurrentPage: (currentpage: number) => void
+    setFetching: (isFetching: boolean) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -37,12 +39,16 @@ export const Users: React.FC<UsersPropsType> = ({
                                                     currentPage,
                                                     pageSize,
                                                     setTotalUsersCount,
-                                                    setCurrentPage
+                                                    setCurrentPage,
+                                                    isFetching,
+                                                    setFetching
                                                 }) => {
 
     const getUsers = () => {
+        setFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
+                setFetching(false)
                 setUsers(response.data.items)
                 setTotalUsersCount(response.data.totalCount)
             })
@@ -54,9 +60,11 @@ export const Users: React.FC<UsersPropsType> = ({
         pages.push(i)
     }
     const onPageClickHandler = (currentPage: number) => {
+        setFetching(true)
         setCurrentPage(currentPage)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
             .then(response => {
+                setFetching(false)
                 setUsers(response.data.items)
                 setTotalUsersCount(response.data.totalCount)
             })
@@ -64,45 +72,52 @@ export const Users: React.FC<UsersPropsType> = ({
 
     useEffect(getUsers, [])
 
-    return <div>
-        <div>
-            {pages.map(p => (
-                <span
-                    key={p}
-                    onClick={() => onPageClickHandler(p)}
-                    className={currentPage === p ? 'boldRedText' : ""}
-                >{p} </span>
-            ))}
-        </div>
+    return (
+        <>
+            {isFetching
+                ? <Preloader/>
+                : <div>
+                    <div>
+                        {pages.map(p => (
+                            <span
+                                key={p}
+                                onClick={() => onPageClickHandler(p)}
+                                className={currentPage === p ? 'boldRedText' : ""}
+                            >{p} </span>
+                        ))}
+                    </div>
 
-        <div className={s.usersContainer}>
-            {users.map(u =>
-                <div key={u.id} className={s.userItem}>
-                    <div className={s.userPicContainer}>
-                        <img src={u.photos.large ? u.photos.large : defaultUserPic} alt="UserPic"
-                             className={s.userPic}/>
-                    </div>
-                    <div>
-                        {u.name}
-                    </div>
-                    <div>
-                        {u.status}
-                    </div>
-                    <div>
-                        {u.id}
-                    </div>
-                    <div>
-                        {u.followed
-                            ? <button onClick={() => unFollow(u.id)}>unfollow</button>
-                            : <button onClick={() => follow(u.id)}>follow</button>
-                        }
+                    <div className={s.usersContainer}>
+                        {users.map(u =>
+                            <div key={u.id} className={s.userItem}>
+                                <div className={s.userPicContainer}>
+                                    <img src={u.photos.large ? u.photos.large : defaultUserPic} alt="UserPic"
+                                         className={s.userPic}/>
+                                </div>
+                                <div>
+                                    {u.name}
+                                </div>
+                                <div>
+                                    {u.status}
+                                </div>
+                                <div>
+                                    {u.id}
+                                </div>
+                                <div>
+                                    {u.followed
+                                        ? <button onClick={() => unFollow(u.id)}>unfollow</button>
+                                        : <button onClick={() => follow(u.id)}>follow</button>
+                                    }
+                                </div>
+
+                            </div>
+                        )}
                     </div>
 
                 </div>
-            )}
-        </div>
-
-    </div>
+            }
+        </>
+    )
 }
 
 
@@ -124,6 +139,9 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         },
         setTotalUsersCount: (totalUsersCount: number) => {
             dispatch(setTotalUsersCountAC(totalUsersCount))
+        },
+        setFetching: (isFetching: boolean) => {
+            dispatch(setFetchingAC(isFetching))
         }
     }
 }
