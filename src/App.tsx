@@ -11,7 +11,6 @@ import News from './components/News';
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersAPIContainer from "./components/Users/UsersAPIContainer";
 
-
 function App() {
 
     return (
