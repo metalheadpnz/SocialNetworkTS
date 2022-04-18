@@ -3,12 +3,15 @@ export type unFollowActionType = ReturnType<typeof unFollowAC>
 export type setUsersActionType = ReturnType<typeof setUserAC>
 export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>
 export type setCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
+export type setFetchingActionType = ReturnType<typeof setFetchingAC>
+
 type actionsTypes =
     followActionType
     | unFollowActionType
     | setUsersActionType
     | setTotalUsersCountActionType
     | setCurrentPageActionType
+    | setFetchingActionType
 
 
 export type userType = {
@@ -28,14 +31,16 @@ export type initialStateType = {
     users: userType[],
     totalUsersCount: number,
     pageSize: number,
-    currentPage: number
+    currentPage: number,
+    isFetching: boolean
 }
 
 const initialState: initialStateType = {
     users: [],
     pageSize: 30,
     totalUsersCount: 1,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 export const usersReducer = (state = initialState, action: actionsTypes): initialStateType => {
@@ -56,6 +61,9 @@ export const usersReducer = (state = initialState, action: actionsTypes): initia
 
         case "SET_CURRENT_PAGE":
             return {...state, currentPage: action.currentPage}
+
+        case "SET_FETCHING":
+            return {...state, isFetching: action.isFetch}
 
         default:
             return state
@@ -94,5 +102,12 @@ export const setCurrentPageAC = (currentPage: number) => {
     return {
         type: 'SET_CURRENT_PAGE',
         currentPage
+    } as const
+}
+
+export const setFetchingAC = (isFetch: boolean) => {
+    return {
+        type: 'SET_FETCHING',
+        isFetch
     } as const
 }

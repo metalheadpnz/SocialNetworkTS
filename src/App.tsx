@@ -9,7 +9,7 @@ import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import Users from "./components/Users/UsersAPIContainer";
+import UsersAPIContainer from "./components/Users/UsersAPIContainer";
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
                     <Route path={'/news'} element={<News/>}/>
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
-                    <Route path={'/users'} element={<Users/>}/>
+                    <Route path={'/users'} element={<UsersAPIContainer/>}/>
                     <Route path={'/*'} element={<NotFound/>}/>
                 </Routes>
             </div>
