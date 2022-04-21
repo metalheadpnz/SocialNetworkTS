@@ -1,6 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
 import {MyPostsPropsType} from "./MyPostsContainer";
+import {useParams} from "react-router-dom";
+import {log} from "util";
 
 const MyPosts: React.FC<MyPostsPropsType> = (
     {
@@ -15,6 +17,9 @@ const MyPosts: React.FC<MyPostsPropsType> = (
 
         onTextAreaChange(e.currentTarget.value)
     }
+
+    const params = useParams<'*'>()['*']
+
 
     return (
         <div className={'p10'}>
@@ -32,6 +37,11 @@ const MyPosts: React.FC<MyPostsPropsType> = (
                     {postsData.map(el => <Post {...el} key={el.id}/>)}
                 </div>
             </div>
+
+            <div>{params}</div>
+            {(() => {
+                console.log(params)
+            })()}
 
         </div>
     );

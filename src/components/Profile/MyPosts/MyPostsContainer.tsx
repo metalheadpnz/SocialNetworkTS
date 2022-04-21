@@ -1,6 +1,6 @@
 import React from 'react';
 import MyPosts from "./MyPosts";
-import {addPostAC, changeTextAreaValueAC, profilePageType} from "../../../redux/profile-reducer";
+import {addPostAC, changeTextAreaValueAC, profilePageType, profileType} from "../../../redux/profile-reducer";
 import {connect} from 'react-redux';
 import {AppStateType} from "../../../redux/store";
 import {Dispatch} from "redux";
@@ -10,10 +10,10 @@ type mapDispatchToPropsType = {
     onTextAreaChange: (newTextAreaValue: string) => void
 }
 
-export type MyPostsPropsType = mapDispatchToPropsType & profilePageType
+export type MyPostsPropsType = mapDispatchToPropsType & Omit<profilePageType, 'profile'>
 
 
-let mapStateToProps = (state: AppStateType): profilePageType => {
+let mapStateToProps = (state: AppStateType): Omit<profilePageType, 'profile'> => {
     return {
         postsData: state.profilePage.postsData,
         textAreaValue: state.profilePage.textAreaValue,
@@ -22,6 +22,7 @@ let mapStateToProps = (state: AppStateType): profilePageType => {
 
 
 let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+
     return {
         addPostButtonHandler: () => {
             dispatch(addPostAC())
