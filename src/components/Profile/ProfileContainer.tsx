@@ -21,7 +21,7 @@ class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStat
 
     componentDidMount(): void {
         this.props.setFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${'13'}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${'2'}`)
             .then(response => {
                 this.props.setUserProfileAC(response.data)
                 this.props.setFetching(false)
@@ -40,7 +40,11 @@ class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStat
     }
 }
 
-const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({isFetching: state.usersPage.isFetching})
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => (
+    {
+        isFetching: state.usersPage.isFetching,
+
+    })
 
 const mapDispatchToProps: mapDispatchToPropsType = {
     setUserProfileAC,

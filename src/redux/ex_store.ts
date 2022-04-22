@@ -2,32 +2,32 @@
 import {addPostActionType, changeTextAreaValueActionType, profileReducer} from "./profile-reducer";
 import {addMessageActionType, changeNewMessageTextActionType, dialogsReducer} from "./dialogs-reducer";
 
-export type dialogType = { id: string, name: string }
-export type messageType = { messageID: string, title: string }
-export type dialogsPageTypes = {
+type dialogType = { id: string, name: string }
+type messageType = { messageID: string, title: string }
+type dialogsPageTypes = {
     dialogsData: dialogType[],
     messagesData: { [userID: string]: messageType[] }
     textAreaValue: string
 
 }
-export type postType = { id: string, message: string, likeCounter: number }
-export type profilePageType = {
+type postType = { id: string, message: string, likeCounter: number }
+type profilePageType = {
     postsData: postType[]
     textAreaValue: string
 }
-export type textAreaValue = string
-export type stateType = {
+
+type stateType = {
     profilePage: profilePageType
     dialogsPage: dialogsPageTypes
 }
-export type storeType = {
+type storeType = {
     _state: stateType,
     getState(): stateType,
     _callTheSubscriber(): void,
     subscribe(observer: () => void): void
     dispatch(action: { type: string }): void
 }
-export type actionsTypes =
+type actionsTypes =
     changeNewMessageTextActionType
     | addMessageActionType
     | addPostActionType

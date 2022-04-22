@@ -1,5 +1,3 @@
-import {log} from "util";
-
 export type addPostActionType = ReturnType<typeof addPostAC>
 export type changeTextAreaValueActionType = ReturnType<typeof changeTextAreaValueAC>
 export type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
@@ -63,7 +61,6 @@ export const profileReducer = (state = initialState, action: actionsTypes): prof
             }
 
         case 'SET_USER_PROFILE':
-            console.log('case')
             return {...state, profile: action.profile}
 
         case 'CHANGE-TEXT-AREA-VALUE':
