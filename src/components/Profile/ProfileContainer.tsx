@@ -6,6 +6,7 @@ import {AppStateType} from "../../redux/store";
 import {profileType, setUserProfileAC} from "../../redux/profile-reducer";
 import {setFetching} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
+import {useParams} from "react-router-dom";
 
 
 type mapDispatchToPropsType = {
@@ -17,11 +18,15 @@ type mapStateToPropsType = {
     isFetching: boolean
 }
 
-class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStateToPropsType> {
+type paramsType = { params: string | undefined }
+
+
+class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStateToPropsType & paramsType> {
 
     componentDidMount(): void {
+        const params = this.props.params
         this.props.setFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${'2'}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${params ? params : '2'}`)
             .then(response => {
                 this.props.setUserProfileAC(response.data)
                 this.props.setFetching(false)
@@ -51,4 +56,12 @@ const mapDispatchToProps: mapDispatchToPropsType = {
     setFetching
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
+
+const ProfileFuncContainer = () => {
+    const params = useParams()
+    return <ConnectContainer params={params.userID}/>
+}
+
+const ConnectContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
+
+export default ProfileFuncContainer

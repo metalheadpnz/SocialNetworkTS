@@ -21,7 +21,9 @@ function App() {
             <div className='app-content-wrap'>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                    <Route path={'/profile/*'}
+                    <Route path={'/profile/:userID'}
+                           element={<ProfileContainer/>}/>
+                    <Route path={'/profile'}
                            element={<ProfileContainer/>}/>
                     <Route path={'/dialogs/*'}
                            element={<DialogsContainer/>}/>
