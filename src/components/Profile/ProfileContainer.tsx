@@ -23,7 +23,8 @@ type paramsType = { params: string | undefined }
 
 class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStateToPropsType & paramsType> {
 
-    componentDidMount(): void {
+
+    getProfileFromServer: () => void = () => {
         const params = this.props.params
         this.props.setFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${params ? params : '2'}`)
@@ -31,6 +32,18 @@ class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStat
                 this.props.setUserProfileAC(response.data)
                 this.props.setFetching(false)
             })
+    }
+
+
+    componentDidMount(): void {
+        this.getProfileFromServer()
+    }
+
+
+    componentDidUpdate(prevProps: Readonly<mapDispatchToPropsType & mapStateToPropsType & paramsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.params !== prevProps.params) {
+            this.getProfileFromServer()
+        }
     }
 
     render() {
