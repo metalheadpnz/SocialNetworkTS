@@ -5,7 +5,8 @@ body {
 
 .app-wrapper {
     margin: 0 auto;
-    width: 1200px;
+    /*width: 1200px;*/
+    width: 100%;
 
     display: grid;
     grid-template-rows: 60px 1fr;
@@ -37,6 +38,9 @@ body {
     color: #e74343;
 }
 
+.loginBlock{
+    float: right;
+}
 
 
 
