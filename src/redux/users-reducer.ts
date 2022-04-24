@@ -43,6 +43,7 @@ const initialState: initialStateType = {
     isFetching: false
 }
 
+
 export const usersReducer = (state = initialState, action: actionsTypes): initialStateType => {
 
     switch (action.type) {

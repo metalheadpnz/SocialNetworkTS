@@ -3,7 +3,7 @@ import s from "./Users.module.css";
 import defaultUserPic from "../../img/anonimus.jpg";
 import {userType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type propsType = {
     userData: userType
@@ -32,48 +32,40 @@ const UserItem: React.FC<propsType> = ({userData, follow, unFollow}) => {
             </div>
             <div>
                 {userData.followed
-                    ? <button onClick={() => {
-                        // unFollow(userData.id)
+                    ? <button className={'bgcRed'}
+                        onClick={() => {
 
-                        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userData.id}`,
-                            {
-                                withCredentials: true,
-                                headers: {
-                                    'API-KEY': '79d0b5ff-d44c-4805-98f4-b6b4db11789b'
-                                }
-                            })
-                            .then(response => {
-
-                                if (response.data.resultCode === 0) {
+                        // axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userData.id}`,
+                        //     {
+                        //         withCredentials: true,
+                        //         headers: {
+                        //             'API-KEY': '79d0b5ff-d44c-4805-98f4-b6b4db11789b'
+                        //         }
+                        //     })
+                        usersAPI.unFollowAPI(userData.id)
+                            .then(data => {
+                                if (data.resultCode === 0) {
                                     unFollow(userData.id)
                                 }
                             })
-                            .catch(err => {
-                                console.log(err)
-                            })
-
 
                     }}>Unfollow</button>
-                    : <button onClick={() => {
+                    : <button className={'bgcGreen'}
+                        onClick={() => {
 
-                        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userData.id}`, {},
-                            {
-                                withCredentials: true,
-                                headers: {
-                                    'API-KEY': '79d0b5ff-d44c-4805-98f4-b6b4db11789b'
-                                }
-                            })
-                            .then(response => {
-                                if (response.data.resultCode === 0) {
+                        // axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userData.id}`, {},
+                        //     {
+                        //         withCredentials: true,
+                        //         headers: {
+                        //             'API-KEY': '79d0b5ff-d44c-4805-98f4-b6b4db11789b'
+                        //         }
+                        //     })
+                        usersAPI.followAPI(userData.id)
+                            .then(data => {
+                                if (data.resultCode === 0) {
                                     follow(userData.id)
                                 }
                             })
-                            .catch(err => {
-                                console.log(err)
-                            })
-
-
-                        // follow(userData.id)
                     }
                     }>Follow</button>
                 }
