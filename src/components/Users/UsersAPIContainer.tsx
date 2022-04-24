@@ -32,7 +32,8 @@ class UsersAPIContainer extends React.Component <UsersPropsType> {
 
     componentDidMount(): void {
         this.props.setFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`,
+            {withCredentials: true})
             .then(response => {
                 this.props.setFetching(false)
                 this.props.setUsers(response.data.items)
@@ -45,7 +46,8 @@ class UsersAPIContainer extends React.Component <UsersPropsType> {
         this.props.setCurrentPage(pageNumber)
         this.props.setFetching(true)
 
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`,
+            {withCredentials: true})
             .then(response => {
                     this.props.setFetching(false)
                     this.props.setUsers(response.data.items)

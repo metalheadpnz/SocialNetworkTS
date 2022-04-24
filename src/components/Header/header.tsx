@@ -9,8 +9,7 @@ import {AppStateType} from "../../redux/store";
 
 const Header = () => {
     const dispatch = useDispatch()
-    //@ts-ignore
-    const userData: profileFromServerType = useSelector<AppStateType>(state => state.auth)
+    const userData = useSelector<AppStateType, profileFromServerType>(state => state.auth)
 
     const getFromServer = () => {
         dispatch(setFetching(true))
