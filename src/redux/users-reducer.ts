@@ -4,6 +4,7 @@ export type setUsersActionType = ReturnType<typeof setUsers>
 export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
 export type setCurrentPageActionType = ReturnType<typeof setCurrentPage>
 export type setFetchingActionType = ReturnType<typeof setFetching>
+export type toggleFollowingActionType = ReturnType<typeof toggleFollowingProgress>
 
 type actionsTypes =
     followActionType
@@ -12,6 +13,7 @@ type actionsTypes =
     | setTotalUsersCountActionType
     | setCurrentPageActionType
     | setFetchingActionType
+    | toggleFollowingActionType
 
 
 export type userType = {
@@ -32,7 +34,8 @@ export type initialStateType = {
     totalUsersCount: number,
     pageSize: number,
     currentPage: number,
-    isFetching: boolean
+    isFetching: boolean,
+    followingInProgress: number[]
 }
 
 const initialState: initialStateType = {
@@ -40,9 +43,9 @@ const initialState: initialStateType = {
     pageSize: 30,
     totalUsersCount: 1,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
-
 
 export const usersReducer = (state = initialState, action: actionsTypes): initialStateType => {
 
@@ -65,6 +68,13 @@ export const usersReducer = (state = initialState, action: actionsTypes): initia
 
         case "SET_FETCHING":
             return {...state, isFetching: action.isFetch}
+
+        case "TOGGLE_FOLLOWING_PROGRESS":
+            return {
+                ...state, followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.ID]
+                    : state.followingInProgress.filter(id => id !== action.ID)
+            }
 
         default:
             return state
@@ -110,5 +120,13 @@ export const setFetching = (isFetch: boolean) => {
     return {
         type: 'SET_FETCHING',
         isFetch
+    } as const
+}
+
+export const toggleFollowingProgress = (isFetching: boolean, ID: number) => {
+    return {
+        type: 'TOGGLE_FOLLOWING_PROGRESS',
+        isFetching,
+        ID
     } as const
 }

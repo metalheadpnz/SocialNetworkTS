@@ -1,6 +1,5 @@
 import React from 'react';
 import s from "./Users.module.css";
-import defaultUserPic from "../../img/anonimus.jpg";
 import {UsersPropsType} from "./UsersAPIContainer";
 import UserItem from "./UserItem";
 
@@ -15,6 +14,8 @@ const Users: React.FC<UsersPropsType & addType> =
          users,
          follow,
          unFollow,
+         followingInProgress,
+         toggleFollowingProgress
 
      }) => {
 
@@ -36,7 +37,13 @@ const Users: React.FC<UsersPropsType & addType> =
                         {p} </span>))}
                 </div>
                 <div className={s.usersContainer}>
-                    {users.map(u => <UserItem userData={u} follow={follow} unFollow={unFollow} key={u.id}/>)}
+                    {users.map(u => <UserItem
+                        toggleFollowingProgress={toggleFollowingProgress}
+                        followingInProgress={followingInProgress}
+                        userData={u}
+                        follow={follow}
+                        unFollow={unFollow}
+                        key={u.id}/>)}
                 </div>
             </div>
         );
