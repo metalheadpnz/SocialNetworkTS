@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 export type followActionType = ReturnType<typeof follow>
 export type unFollowActionType = ReturnType<typeof unFollow>
 export type setUsersActionType = ReturnType<typeof setUsers>
@@ -129,4 +132,17 @@ export const toggleFollowingProgress = (isFetching: boolean, ID: number) => {
         isFetching,
         ID
     } as const
+}
+
+
+export const getUsers = (pageSize: number, currentPage: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFetching(true))
+        usersAPI.getUsers(pageSize, currentPage)
+            .then(data => {
+                dispatch(setFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
+            })
+    }
 }

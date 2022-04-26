@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {AppStateType} from "../../redux/store";
 import {
-    follow,
+    follow, getUsers,
     initialStateType,
     setCurrentPage, setFetching,
     setTotalUsersCount,
@@ -12,7 +12,6 @@ import {
 } from "../../redux/users-reducer";
 import Users from './Users';
 import Preloader from "../common/Preloader";
-import {usersAPI} from "../../api/api";
 
 
 type mapStateToPropsType = initialStateType
@@ -25,6 +24,7 @@ type mapDispatchToPropsType = {
     setTotalUsersCount: (totalUsersCount: number) => void
     setFetching: (isFetching: boolean) => void
     toggleFollowingProgress: (isFetching: boolean, ID: number) => void
+    getUsers: (pageSize: number, currentPage: number) => void
 }
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
@@ -32,26 +32,13 @@ export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType
 class UsersAPIContainer extends React.Component <UsersPropsType> {
 
     componentDidMount(): void {
-        this.props.setFetching(true)
-        usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
-            .then(data => {
-                this.props.setFetching(false)
-                this.props.setUsers(data.items)
-                this.props.setTotalUsersCount(data.totalCount)
-            })
+        this.props.getUsers(this.props.pageSize, this.props.currentPage)
     }
 
 
     onChangePageHandler = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
-        this.props.setFetching(true)
-        usersAPI.getUsers(this.props.pageSize, pageNumber)
-            .then(data => {
-                    this.props.setFetching(false)
-                    this.props.setUsers(data.items)
-                    this.props.setTotalUsersCount(data.totalCount)
-                }
-            )
+        this.props.getUsers(this.props.pageSize, pageNumber)
     }
 
     render() {
@@ -81,7 +68,8 @@ const mapDispatchToProps = {
     setCurrentPage,
     setTotalUsersCount,
     setFetching,
-    toggleFollowingProgress
+    toggleFollowingProgress,
+    getUsers,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)

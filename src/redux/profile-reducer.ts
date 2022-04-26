@@ -1,3 +1,7 @@
+import {setFetching} from "./users-reducer";
+import {profileAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 export type addPostActionType = ReturnType<typeof addPostAC>
 export type changeTextAreaValueActionType = ReturnType<typeof changeTextAreaValueAC>
 export type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
@@ -86,4 +90,15 @@ export const setUserProfileAC = (profile: profileType) => {
         type: 'SET_USER_PROFILE',
         profile
     } as const
+}
+
+export const getProfile = (params: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFetching(true))
+        profileAPI.getProfile(params)
+            .then(data => {
+                dispatch(setUserProfileAC(data))
+                dispatch(setFetching(false))
+            })
+    }
 }

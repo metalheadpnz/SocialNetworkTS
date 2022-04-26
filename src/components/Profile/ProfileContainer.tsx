@@ -1,17 +1,18 @@
 import React from 'react';
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from 'react-redux';
 import {AppStateType} from "../../redux/store";
-import {profileType, setUserProfileAC} from "../../redux/profile-reducer";
+import {getProfile, profileType, setUserProfileAC} from "../../redux/profile-reducer";
 import {setFetching} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
 import {useParams} from "react-router-dom";
 
 
+
 type mapDispatchToPropsType = {
     setUserProfileAC: (profile: profileType) => void,
     setFetching: (set: boolean) => void
+    getProfile: (userProfileID: number) => void
 }
 
 type mapStateToPropsType = {
@@ -24,14 +25,29 @@ type paramsType = { params: string | undefined }
 class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStateToPropsType & paramsType> {
 
 
-    getProfileFromServer: () => void = () => {
+    // getProfileFromServer: () => void = () => {
+    //     const params = this.props.params
+    //     this.props.setFetching(true)
+    //     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${params ? params : '2'}`)
+    //         .then(response => {
+    //             this.props.setUserProfileAC(response.data)
+    //             this.props.setFetching(false)
+    //         })
+    // }
+
+    // getProfileFromServer: () => void = () => {
+    //     const params = this.props.params
+    //     this.props.setFetching(true)
+    //     profileAPI.getProfile(params ? +params : 2)
+    //         .then(data => {
+    //             this.props.setUserProfileAC(data)
+    //             this.props.setFetching(false)
+    //         })
+    // }
+
+    getProfileFromServer() {
         const params = this.props.params
-        this.props.setFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${params ? params : '2'}`)
-            .then(response => {
-                this.props.setUserProfileAC(response.data)
-                this.props.setFetching(false)
-            })
+        this.props.getProfile(params ? +params : 2)
     }
 
 
@@ -66,7 +82,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => (
 
 const mapDispatchToProps: mapDispatchToPropsType = {
     setUserProfileAC,
-    setFetching
+    setFetching,
+    getProfile
 }
 
 
