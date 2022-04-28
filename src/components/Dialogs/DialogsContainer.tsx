@@ -1,8 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import Dialogs from "./Dialogs";
 import {dialogsPageTypes, dialogType, messageType} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/store";
+import {Navigate} from 'react-router-dom';
 
 
 type mapStateToPropsType = {
@@ -21,4 +22,18 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, {})(Dialogs)
+const DialogsRedirect = (props: DialogsPropsType) => {
+
+    const isAuth = useSelector<AppStateType, null | number>(state => state.auth.resultCode) == 0
+
+    return (
+        <>
+            {isAuth
+                ? <Dialogs {...props}/>
+                : <Navigate to={'/login'}/>}
+
+        </>
+    )
+}
+
+export const DialogsContainer = connect(mapStateToProps, {})(DialogsRedirect)
