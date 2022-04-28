@@ -1,29 +1,16 @@
 import React, {useEffect} from 'react';
 import styles from './header.module.css'
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {setFetching} from "../../redux/users-reducer";
-import {profileFromServerType, setUserData} from "../../redux/auth-reducer";
+import {getAuthUserData, profileFromServerType} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/store";
 
 const Header = () => {
-    const dispatch = useDispatch()
     const userData = useSelector<AppStateType, profileFromServerType>(state => state.auth)
-
-    const getFromServer = () => {
-        dispatch(setFetching(true))
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    dispatch(setUserData(response.data))
-                }
-                dispatch(setFetching(false))
-            })
-    }
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        getFromServer()
+        dispatch(getAuthUserData())
     }, [])
 
     return (

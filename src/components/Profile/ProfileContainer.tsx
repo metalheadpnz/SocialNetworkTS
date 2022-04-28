@@ -8,7 +8,6 @@ import Preloader from "../common/Preloader";
 import {useParams} from "react-router-dom";
 
 
-
 type mapDispatchToPropsType = {
     setUserProfileAC: (profile: profileType) => void,
     setFetching: (set: boolean) => void
@@ -17,6 +16,8 @@ type mapDispatchToPropsType = {
 
 type mapStateToPropsType = {
     isFetching: boolean
+    // meID: number | null
+    meID: any
 }
 
 type paramsType = { params: string | undefined }
@@ -25,46 +26,23 @@ type paramsType = { params: string | undefined }
 class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStateToPropsType & paramsType> {
 
 
-    // getProfileFromServer: () => void = () => {
-    //     const params = this.props.params
-    //     this.props.setFetching(true)
-    //     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${params ? params : '2'}`)
-    //         .then(response => {
-    //             this.props.setUserProfileAC(response.data)
-    //             this.props.setFetching(false)
-    //         })
-    // }
-
-    // getProfileFromServer: () => void = () => {
-    //     const params = this.props.params
-    //     this.props.setFetching(true)
-    //     profileAPI.getProfile(params ? +params : 2)
-    //         .then(data => {
-    //             this.props.setUserProfileAC(data)
-    //             this.props.setFetching(false)
-    //         })
-    // }
-
-    getProfileFromServer() {
-        const params = this.props.params
-        this.props.getProfile(params ? +params : 2)
-    }
-
-
     componentDidMount(): void {
-        this.getProfileFromServer()
+        this.props.getProfile(this.props.params ? +this.props.params : 2)
     }
 
 
     componentDidUpdate(prevProps: Readonly<mapDispatchToPropsType & mapStateToPropsType & paramsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (this.props.params !== prevProps.params) {
-            this.getProfileFromServer()
+            this.props.getProfile(this.props.params ? +this.props.params : 2)
         }
     }
 
     render() {
         return (
             <>
+                {(() => {
+                    console.log(this.props)
+                })()}
                 {this.props.isFetching
                     ? <Preloader/>
                     : <Profile/>}
@@ -77,6 +55,7 @@ class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStat
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => (
     {
         isFetching: state.usersPage.isFetching,
+        meID: state.auth
 
     })
 

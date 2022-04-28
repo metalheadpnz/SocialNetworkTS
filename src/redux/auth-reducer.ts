@@ -1,3 +1,7 @@
+import {setFetching} from "./users-reducer";
+import {authAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 export type setUserDataType = ReturnType<typeof setUserData>
 
 export type userProfileDataType = {
@@ -38,4 +42,20 @@ export const authReducer = (state = initialState, action: actionsTypes) => {
 
 export const setUserData = (profileUserData: profileFromServerType) => {
     return {type: 'SET_USER_DATA', data: profileUserData} as const
+}
+
+
+export const getAuthUserData = () => {
+    console.log('getAuth')
+    return (dispatch: Dispatch) => {
+        dispatch(setFetching(true))
+        authAPI.me()
+            .then(data => {
+                console.log(data)
+                if (data.resultCode == 0) {
+                    dispatch(setUserData(data))
+                }
+                dispatch(setFetching(false))
+            })
+    }
 }

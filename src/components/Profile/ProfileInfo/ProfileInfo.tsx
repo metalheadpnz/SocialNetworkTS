@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {profileType} from "../../../redux/profile-reducer";
 import {AppStateType} from "../../../redux/store";
+import defaultUserPic from '../../../img/anonimus.jpg'
 
 type mapStateToPropsType = {
     profile: profileType
@@ -19,7 +20,7 @@ const ProfileInfo: React.FC<mapStateToPropsType> = ({profile}) => {
                 ? <div className={'p10'}>
                     ava+description
                     <div>
-                        <img src={profile.photos.large ? profile.photos.large : ''} alt="userPic"/>
+                        <img src={profile.photos.large ? profile.photos.large : defaultUserPic} alt="userPic"/>
                     </div>
                     <div>{profile.aboutMe}</div>
                     <div>{profile.fullName}</div>

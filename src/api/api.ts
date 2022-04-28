@@ -8,8 +8,22 @@ const instance = axios.create({
     }
 });
 
+export const authAPI = {
+    me() {
+        return instance.get(
+            'auth/me',
+            {withCredentials: true}
+        )
+            .then(response => {
+                console.log(response)
+                return response.data
+            })
+    }
+}
+
+
 export const profileAPI = {
-        getProfile (userProfileID: number =2){
+    getProfile(userProfileID: number = 2) {
 
         return instance.get(
             `profile/${userProfileID}`,
