@@ -46,12 +46,12 @@ export const setUserData = (profileUserData: profileFromServerType) => {
 
 
 export const getAuthUserData = () => {
-    console.log('getAuth')
+
     return (dispatch: Dispatch) => {
         dispatch(setFetching(true))
         authAPI.me()
             .then(data => {
-                console.log(data)
+
                 if (data.resultCode == 0) {
                     dispatch(setUserData(data))
                 }

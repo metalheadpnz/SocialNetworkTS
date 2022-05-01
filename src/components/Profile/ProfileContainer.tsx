@@ -40,9 +40,6 @@ class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStat
     render() {
         return (
             <>
-                {(() => {
-                    console.log(this.props)
-                })()}
                 {this.props.isFetching
                     ? <Preloader/>
                     : <Profile/>}
