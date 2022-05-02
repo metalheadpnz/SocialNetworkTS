@@ -7,7 +7,7 @@ import NotFound from "./components/common/NotFound";
 import Music from "./components/Music";
 import Settings from "./components/Settings";
 import News from './components/News';
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersAPIContainer from "./components/Users/UsersAPIContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Login from "./components/Login/Login";
@@ -28,10 +28,7 @@ function App() {
                            element={<ProfileContainer/>}/>
                     <Route path={'/dialogs/*'}
                            element={<DialogsContainer/>}/>
-                    {/*<Route path={'/news'} element={<News/>}/>*/}
-
                     <Route path={'/news'} element={<News/>}/>
-
                     <Route path={'/music'} element={<Music/>}/>
                     <Route path={'/settings'} element={<Settings/>}/>
                     <Route path={'/users'} element={<UsersAPIContainer/>}/>

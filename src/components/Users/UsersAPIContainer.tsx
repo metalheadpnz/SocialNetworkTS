@@ -13,6 +13,7 @@ import {
 import Users from './Users';
 import Preloader from "../common/Preloader";
 import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 type mapStateToPropsType = initialStateType
@@ -73,4 +74,7 @@ const mapDispatchToProps = {
     getUsers,
 }
 
-export default WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer))
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    WithAuthRedirect
+)(UsersAPIContainer)
