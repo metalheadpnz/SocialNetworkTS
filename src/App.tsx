@@ -13,7 +13,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import Login from "./components/Login/Login";
 
 function App() {
-
+    // console.log('APP')
     return (
         <div className="app-wrapper">
             <Header/>

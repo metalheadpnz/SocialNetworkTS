@@ -2,12 +2,9 @@ import React from 'react';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
-type propsType = {
-
-}
+type propsType = {}
 
 const Profile: React.FC<propsType> = () => {
-
     return (
         <div>
             <ProfileInfo/>

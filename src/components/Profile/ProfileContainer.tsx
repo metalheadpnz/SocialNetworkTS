@@ -6,6 +6,7 @@ import {getProfile, profileType, setUserProfileAC} from "../../redux/profile-red
 import {setFetching} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
 import {useParams} from "react-router-dom";
+import {WithAuthRedirect} from "../hoc/WithAuthRedirect";
 
 
 type mapDispatchToPropsType = {
@@ -65,9 +66,10 @@ const mapDispatchToProps: mapDispatchToPropsType = {
 
 const ProfileFuncContainer = () => {
     const params = useParams()
+    //@ts-ignore
     return <ConnectContainer params={params.userID}/>
 }
 
-const ConnectContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
+const ConnectContainer = WithAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(ProfileContainer))
 
 export default ProfileFuncContainer
