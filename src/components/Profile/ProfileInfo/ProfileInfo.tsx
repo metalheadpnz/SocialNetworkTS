@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {profileType} from "../../../redux/profile-reducer";
 import {AppStateType} from "../../../redux/store";
 import defaultUserPic from '../../../img/anonimus.jpg'
+import ProfileStatus from "../ProfileStatus";
 
 type mapStateToPropsType = {
     profile: profileType
@@ -28,6 +29,8 @@ const ProfileInfo: React.FC<mapStateToPropsType> = ({profile}) => {
                 </div>
                 : <div>Нет данных для отображения</div>
             }
+
+            <ProfileStatus status={'test status 555555'}/>
 
         </div>
     );
