@@ -2,7 +2,13 @@ import React from 'react';
 import Profile from "./Profile";
 import {connect} from 'react-redux';
 import {AppStateType} from "../../redux/store";
-import {getProfile, profileType, setUserProfileAC} from "../../redux/profile-reducer";
+import {
+    getProfile,
+    getStatusProfile,
+    profileType,
+    setUserProfileAC,
+    updateStatusProfile
+} from "../../redux/profile-reducer";
 import {setFetching} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
 import {useParams} from "react-router-dom";
@@ -13,12 +19,15 @@ type mapDispatchToPropsType = {
     setUserProfileAC: (profile: profileType) => void,
     setFetching: (set: boolean) => void
     getProfile: (userProfileID: number) => void
+    getStatusProfile: (userID: number) => void
+    updateStatusProfile: (status: string) => void
 }
 
 type mapStateToPropsType = {
     isFetching: boolean
     // meID: number | null
     meID: any
+    status: string
 }
 
 type paramsType = { params: string | undefined }
@@ -28,22 +37,26 @@ class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStat
 
 
     componentDidMount(): void {
-        this.props.getProfile(this.props.params ? +this.props.params : 2)
+        this.props.getProfile(this.props.params ? +this.props.params : 8519)
+        this.props.getStatusProfile(this.props.params ? +this.props.params : 8519)
     }
 
 
     componentDidUpdate(prevProps: Readonly<mapDispatchToPropsType & mapStateToPropsType & paramsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (this.props.params !== prevProps.params) {
-            this.props.getProfile(this.props.params ? +this.props.params : 2)
+            this.props.getProfile(this.props.params ? +this.props.params : 8519)
+            this.props.getStatusProfile(this.props.params ? +this.props.params : 8519)
         }
     }
 
     render() {
+        console.log(this.props)
         return (
             <>
                 {this.props.isFetching
                     ? <Preloader/>
-                    : <Profile/>}
+                    : <Profile status={this.props.status}
+                               updateStatusProfile={this.props.updateStatusProfile}/>}
             </>
 
         );
@@ -53,14 +66,17 @@ class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStat
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => (
     {
         isFetching: state.usersPage.isFetching,
-        meID: state.auth
+        meID: state.auth,
+        status: state.profilePage.status
 
     })
 
 const mapDispatchToProps: mapDispatchToPropsType = {
     setUserProfileAC,
     setFetching,
-    getProfile
+    getProfile,
+    getStatusProfile,
+    updateStatusProfile
 }
 
 

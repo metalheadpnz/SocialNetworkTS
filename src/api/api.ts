@@ -30,6 +30,21 @@ export const profileAPI = {
             {withCredentials: true}
         )
             .then(response => response.data)
+    },
+
+    getStatus(userID: number) {
+        return instance.get(
+            `profile/status/${userID}`,
+            {withCredentials: true}
+        ).then(resp => resp.data as string)
+    },
+
+    setStatus(status: string) {
+        return instance.put(
+            'profile/status',
+            {status},
+            {withCredentials: true}
+        )
     }
 }
 

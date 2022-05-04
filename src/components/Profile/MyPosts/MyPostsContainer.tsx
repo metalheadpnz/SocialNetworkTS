@@ -17,6 +17,7 @@ let mapStateToProps = (state: AppStateType): Omit<profilePageType, 'profile'> =>
     return {
         postsData: state.profilePage.postsData,
         textAreaValue: state.profilePage.textAreaValue,
+        status: state.profilePage.status
     }
 }
 

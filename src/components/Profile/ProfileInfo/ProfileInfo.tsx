@@ -8,9 +8,16 @@ import ProfileStatus from "../ProfileStatus";
 type mapStateToPropsType = {
     profile: profileType
 }
+type addPropsFromParent = {
+    updateStatusProfile: (status: string) => void
+}
 
-const ProfileInfo: React.FC<mapStateToPropsType> = ({profile}) => {
+type propsFromParent = {
+    status: string
+}
 
+const ProfileInfo: React.FC<mapStateToPropsType & addPropsFromParent & propsFromParent> = ({profile, ...restProps}) => {
+    // console.log(restProps)
     return (
         <div>
             {/*ТУТ КАРТИНКА!!!!*/}
@@ -30,7 +37,7 @@ const ProfileInfo: React.FC<mapStateToPropsType> = ({profile}) => {
                 : <div>Нет данных для отображения</div>
             }
 
-            <ProfileStatus status={'test status 555555'}/>
+            <ProfileStatus {...restProps}/>
 
         </div>
     );
