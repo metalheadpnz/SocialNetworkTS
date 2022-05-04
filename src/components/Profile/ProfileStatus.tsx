@@ -1,6 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler, Component} from 'react';
-import {profileAPI} from "../../api/api";
-import {getStatusProfile} from "../../redux/profile-reducer";
+import React, {ChangeEvent, Component} from 'react';
 
 type propsType = {
     status: string,
@@ -36,6 +34,14 @@ class ProfileStatus extends Component<propsType, stateType> {
         this.setState({
             status: e.currentTarget.value
         })
+    }
+
+    componentDidUpdate(prevProps: Readonly<propsType>, prevState: Readonly<stateType>, snapshot?: any): void {
+        if (this.props.status !== prevProps.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
     }
 
     render() {

@@ -21,7 +21,7 @@ function App() {
 
             <div className='app-content-wrap'>
                 <Routes>
-                    <Route path={'/'} element={<Navigate to={'/login'}/>}/>
+                    <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                     <Route path={'/profile/:userID'}
                            element={<ProfileContainer/>}/>
                     <Route path={'/profile'}

@@ -23,7 +23,7 @@ const initialState: profileFromServerType = {
     data: {email: null, login: null, userId: null},
     fieldsErrors: null,
     messages: null,
-    resultCode: null
+    resultCode: 0
 }
 
 export const authReducer = (state = initialState, action: actionsTypes) => {

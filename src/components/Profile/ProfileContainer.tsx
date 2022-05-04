@@ -50,7 +50,7 @@ class ProfileContainer extends React.Component <mapDispatchToPropsType & mapStat
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <>
                 {this.props.isFetching
